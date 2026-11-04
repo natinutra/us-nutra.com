@@ -1,850 +1,1373 @@
 <!DOCTYPE html>
-<html lang="it" dir="ltr"><head>
-  <!-- Presell builder by theMinerX.com -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="Diapril - Paghi solo alla consegna">
-  <meta name="robots" content="noindex, nofollow">
-  <script type="application/json" id="adsx_info">{"url":"https://us-nutra.com/diapril","affiliate_link":"https://natinutra.doctorpowerplus.com/l","platformTracking":"drcash","platformSource":"dr.cash","type":"cod","product_name":"Diapril","language":"it","created_at":"2026-11-04T19:13:17.602Z","unique_id":"1793819597349_wqjno0xz"}</script>
-  <title>Diapril | Paghi solo alla consegna</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&amp;family=Nunito+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
-  <!--
-    Presell COD sem formulário (redesenho 28/09/2026; visual de faixas 23/10/2026,
-    no sistema da Robusta: Montserrat nos títulos, Nunito Sans no texto, botão em
-    pílula). Sem ícone de CDN e sem JS de interface: o editor visual roda a página
-    sem script, então tudo que aparece ou some é decidido na geração
-    (CodHtmlGenerator).
-    Cores: só a de destaque, do formulário. Os tons (--deep das faixas escuras,
-    --soft das claras, --tint de selos e números) e o botão (--cta, que contrasta
-    com ela) saem por buildPresellPalette, a mesma regra da Robusta
-    (CodReplacementsBuilder).
-    Chaves de CSS sempre seguidas de espaço: o teste de placeholders lê
-    qualquer chave colada como placeholder.
-  -->
-  <style>
-    :root {
-      --primary: #1369c3;
-      --deep: #0d4682;
-      --soft: #f4f7fa;
-      --tint: #e5edf5;
-      /* Botão: sem cor própria no formulário desde 23/10/2026; o destaque da
-         paleta contrasta com a cor escolhida (dourado, ou o oposto dela). */
-      --cta: #ffc107;
-      --cta-text: #1a1a1a;
-      --ink: #0f172a;
-      --text: #334155;
-      --muted: #64748b;
-      --line: #e2e8f0;
-      --band: max(16px, calc((100% - 1040px) / 2));
-      --font-title: "Montserrat", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: #ffffff;
-      color: var(--text);
-      font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      font-size: 18px;
-      font-weight: 400;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .cd-icon {
-      flex: none;
-    }
-
-    /* ============ Faixa do topo ============ */
-    /* Fixa no topo durante a rolagem: "pague na entrega" sempre à vista. */
-    .cd-topbar {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 10px 16px;
-      background: var(--deep);
-      color: #fff;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      text-align: center;
-    }
-
-    /* Contador de 5 min ao lado do "Pague somente na entrega" (opcional no form). */
-    .cd-timer {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 2px 10px;
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      border-radius: 999px;
-      font-variant-numeric: tabular-nums;
-      white-space: nowrap;
-    }
-
-    /* Cada seção é uma faixa de largura total; o conteúdo fica numa coluna de
-       até 1040px pelo recuo lateral (--band), sem div extra para o editor. */
-    .cd-wrap {
-      width: 100%;
-    }
-
-    .cd-section,
-    .cd-hero {
-      padding: 48px var(--band);
-      background: #ffffff;
-    }
-
-    .cd-title {
-      color: var(--ink);
-      font-family: var(--font-title);
-      font-size: 26px;
-      font-weight: 800;
-      line-height: 1.25;
-      text-align: center;
-      margin-bottom: 28px;
-    }
-
-    /* Traço curto acima do título, na cor do botão. */
-    .cd-title::before {
-      content: "";
-      display: block;
-      width: 44px;
-      height: 4px;
-      margin: 0 auto 16px;
-      border-radius: 2px;
-      background: var(--cta);
-    }
-
-    /* ============ Hero ============ */
-    .cd-hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      grid-template-areas: "head" "media" "buy";
-      gap: 20px;
-      padding-top: 32px;
-      background: var(--soft);
-      text-align: center;
-    }
-
-    /* O nome do produto vem depois do título no HTML; aparece em cima, como sobretítulo. */
-    .cd-hero-head {
-      grid-area: head;
-      display: flex;
-      flex-direction: column-reverse;
-      gap: 10px;
-    }
-
-    .cd-hero-media {
-      grid-area: media;
-    }
-
-    .cd-hero-buy {
-      grid-area: buy;
-    }
-
-    .cd-headline {
-      color: var(--ink);
-      font-family: var(--font-title);
-      font-size: 32px;
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -0.01em;
-    }
-
-    .cd-product {
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    /* Sem proporção forçada e com cantos arredondados: o mockup transparente
-       não muda, e a foto real trocada no editor (retangular, fundo cheio) fica
-       emoldurada como os cards em vez de parecer um recorte colado (23/10/2026). */
-    .cd-hero-img,
-    .cd-how-img,
-    .cd-final-img {
-      display: block;
-      width: 100%;
-      height: auto;
-      margin: 0 auto;
-      border-radius: 16px;
-    }
-
-    /* Menor no celular para o botão e a caixa de confiança caberem na 1ª dobra. */
-    .cd-hero-img {
-      max-width: 260px;
-    }
-
-    /* ============ Preço ============ */
-    .cd-price-old {
-      color: var(--muted);
-      font-size: 16px;
-    }
-
-    .cd-price-label {
-      color: var(--muted);
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .cd-price-new {
-      color: var(--ink);
-      font-family: var(--font-title);
-      font-size: 34px;
-      font-weight: 800;
-      line-height: 1.2;
-    }
-
-    .cd-saving {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 3px 12px;
-      border-radius: 999px;
-      background: var(--tint);
-      color: var(--deep);
-      font-size: 15px;
-      font-weight: 700;
-    }
-
-    /* ============ CTA ============ */
-    .cd-cta {
-      display: block;
-      width: 100%;
-      max-width: 460px;
-      margin: 20px auto 0;
-      padding: 18px 28px;
-      border-radius: 999px;
-      background: var(--cta);
-      color: var(--cta-text);
-      font-family: var(--font-title);
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 1.3;
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      text-decoration: none;
-      box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--cta) 70%, transparent);
-      transition: transform 0.15s ease, filter 0.2s ease;
-    }
-
-    .cd-cta:hover {
-      filter: brightness(1.06);
-      transform: translateY(-1px);
-    }
-
-    .cd-cta:active {
-      transform: translateY(1px);
-    }
-
-    /* Caixa de confiança sob o CTA final: não solicitamos cartão nem documentos. */
-    .cd-trust {
-      display: grid;
-      gap: 10px;
-      width: 100%;
-      max-width: 460px;
-      margin: 20px auto 0;
-      list-style: none;
-      text-align: start;
-    }
-
-    .cd-trust-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 1.35;
-    }
-
-    .cd-trust-item .cd-icon {
-      width: 22px;
-      height: 22px;
-      padding: 3px;
-      border-radius: 50%;
-      background: var(--cta);
-      color: var(--cta-text);
-      stroke-width: 3;
-    }
-
-    /* ============ Chips de confiança ============ */
-    /* Sem fundo: ícone + texto, para quebrar linha sem deixar uma pílula sozinha. */
-    .cd-chips {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px 20px;
-      margin-top: 18px;
-      list-style: none;
-    }
-
-    .cd-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text);
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .cd-chip .cd-icon {
-      width: 18px;
-      height: 18px;
-      color: var(--primary);
-    }
-
-    /* ============ Como funciona ============ */
-    .cd-how-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 28px;
-      align-items: center;
-    }
-
-    .cd-how-img {
-      max-width: 240px;
-    }
-
-    /* Imagem de desejo entre o título e o CTA final. */
-    .cd-final-img {
-      max-width: 280px;
-    }
-
-    .cd-steps {
-      display: grid;
-      gap: 22px;
-      list-style: none;
-    }
-
-    .cd-step {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-
-    .cd-step-n {
-      display: flex;
-      flex: none;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--tint);
-      color: var(--deep);
-      font-family: var(--font-title);
-      font-size: 17px;
-      font-weight: 800;
-    }
-
-    .cd-step-title {
-      color: var(--ink);
-      font-size: 19px;
-      font-weight: 700;
-      line-height: 1.3;
-      margin-top: 7px;
-    }
-
-    .cd-step-text {
-      color: var(--muted);
-      font-size: 17px;
-    }
-
-    /* ============ Garantias (faixa escura) ============ */
-    /* "Sem cartão nem documentos" e "Não pague se não gostar" lado a lado. */
-    .cd-assurance {
-      background: var(--deep);
-      color: rgba(255, 255, 255, 0.82);
-    }
-
-    .cd-assurance-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 32px;
-    }
-
-    .cd-guarantee {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-
-    .cd-guarantee-icon {
-      display: inline-flex;
-      flex: none;
-      align-items: center;
-      justify-content: center;
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-    }
-
-    .cd-guarantee-icon .cd-icon {
-      width: 26px;
-      height: 26px;
-    }
-
-    .cd-guarantee .cd-title {
-      margin-bottom: 6px;
-      color: #fff;
-      font-size: 21px;
-      text-align: start;
-    }
-
-    .cd-guarantee .cd-title::before {
-      display: none;
-    }
-
-    .cd-guarantee-text {
-      font-size: 17px;
-    }
-
-    /* ============ Ofertas ============ */
-    /* O "Escolher meu kit" rola até aqui: desconta a barra fixa do topo. */
-    .cd-offers {
-      scroll-margin-top: 48px;
-    }
-
-    .cd-offer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      padding-top: 8px;
-    }
-
-    .cd-offer {
-      position: relative;
-      padding: 28px 20px 24px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: #fff;
-      text-align: center;
-    }
-
-    .cd-offer--best {
-      border: 2px solid var(--cta);
-      box-shadow: 0 18px 40px -24px rgba(15, 23, 42, 0.45);
-    }
-
-    .cd-offer-badge {
-      position: absolute;
-      top: -13px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 3px 14px;
-      border-radius: 999px;
-      background: var(--cta);
-      color: var(--cta-text);
-      font-family: var(--font-title);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .cd-offer-img {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-height: 180px;
-      aspect-ratio: 4 / 3;
-      object-fit: contain;
-    }
-
-    .cd-offer-name {
-      margin-top: 10px;
-      color: var(--ink);
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    .cd-offer .cd-price-new {
-      font-size: 30px;
-    }
-
-    .cd-offer .cd-cta {
-      padding-inline: 20px;
-      font-size: 15px;
-    }
-
-    .cd-offer .cd-saving {
-      padding: 3px 10px;
-      white-space: nowrap;
-    }
-
-    /* ============ FAQ ============ */
-    .cd-faq-section {
-      background: var(--soft);
-    }
-
-    .cd-faq {
-      max-width: 720px;
-      margin: 0 auto;
-    }
-
-    .cd-faq-item {
-      margin-bottom: 10px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: #fff;
-    }
-
-    .cd-faq-item summary {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      min-height: 60px;
-      padding: 14px 20px;
-      color: var(--ink);
-      font-size: 17px;
-      font-weight: 700;
-      line-height: 1.4;
-      list-style: none;
-      cursor: pointer;
-    }
-
-    .cd-faq-item summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .cd-faq-item summary::after {
-      content: "+";
-      flex: none;
-      margin-inline-start: auto;
-      color: var(--primary);
-      font-size: 26px;
-      font-weight: 400;
-      line-height: 1;
-    }
-
-    .cd-faq-item[open] summary::after {
-      content: "\2212";
-    }
-
-    .cd-faq-item p {
-      padding: 0 20px 18px;
-      color: var(--muted);
-      font-size: 17px;
-    }
-
-    /* ============ Suporte ============ */
-    .cd-support {
-      text-align: center;
-    }
-
-    .cd-support-text {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .cd-support .cd-title {
-      margin-bottom: 10px;
-    }
-
-    .cd-support-img {
-      display: block;
-      width: 100%;
-      max-width: 420px;
-      height: auto;
-      margin: 20px auto 0;
-      border-radius: 16px;
-    }
-
-    /* Botão do WhatsApp é uma imagem (arte "Fale conosco via WhatsApp"). */
-    .cd-whatsapp {
-      display: block;
-      max-width: 360px;
-      text-decoration: none;
-      margin: 16px auto 0;
-      transition: transform 0.15s ease;
-    }
-
-    .cd-whatsapp:hover {
-      transform: scale(1.02);
-    }
-
-    .cd-whatsapp-img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    /* Botão em texto: idiomas sem a arte (a imagem tem a frase em português) */
-    .cd-whatsapp-btn {
-      display: block;
-      padding: 16px 20px;
-      border-radius: 999px;
-      background: #25d366;
-      color: #ffffff;
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1.2;
-      text-align: center;
-      box-shadow: 0 10px 24px -10px rgba(37, 211, 102, 0.7);
-    }
-
-    /* ============ CTA final (faixa escura) e rodapé ============ */
-    .cd-final {
-      background: var(--deep);
-      text-align: center;
-    }
-
-    .cd-final .cd-title {
-      color: #fff;
-    }
-
-    .cd-footer {
-      padding: 28px 16px 12px;
-      color: var(--muted);
-      font-size: 14px;
-      text-align: center;
-    }
-
-    .disclaimer {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 16px 28px;
-      color: var(--muted);
-      font-size: 13px;
-      text-align: center;
-    }
-
-    /* ============ Desktop ============ */
-    @media (min-width: 768px) {
-      .cd-section,
-      .cd-hero {
-        padding-top: 72px;
-        padding-bottom: 72px;
-      }
-
-      .cd-hero {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        grid-template-areas: "media head" "media buy";
-        column-gap: 56px;
-        row-gap: 0;
-        padding-top: 64px;
-        padding-bottom: 64px;
-        align-items: center;
-        text-align: start;
-      }
-
-      .cd-hero-head {
-        align-self: end;
-      }
-
-      .cd-hero-buy {
-        align-self: start;
-        padding-top: 20px;
-      }
-
-      .cd-hero .cd-cta {
-        margin-inline-start: 0;
-      }
-
-      .cd-hero .cd-chips {
-        justify-content: flex-start;
-      }
-
-      .cd-hero-img {
-        max-width: 420px;
-      }
-
-      .cd-headline {
-        font-size: 44px;
-      }
-
-      .cd-price-new {
-        font-size: 36px;
-      }
-
-      .cd-title {
-        font-size: 32px;
-        margin-bottom: 40px;
-      }
-
-      .cd-how-grid {
-        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-        gap: 56px;
-      }
-
-      .cd-how-media {
-        order: 2;
-      }
-
-      .cd-assurance {
-        padding-top: 56px;
-        padding-bottom: 56px;
-      }
-
-      .cd-assurance-grid {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        gap: 48px;
-      }
-    }
-  </style>
-  <!-- Google tag (gtag.js) --> <script async="" src="https://www.googletagmanager.com/gtag/js?id=AW-17341898308"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-17341898308'); </script>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Compre agora este produto exclusivo com alta qualidade e durabilidade. Aproveite nossas ofertas especiais e receba conforto e praticidade diretamente em sua casa." />
+          <meta name="keywords" content="Compre agora este produto exclusivo com alta qualidade e durabilidade. Aproveite nossas ofertas especiais e receba conforto e praticidade diretamente em sua casa." />
+          <meta name="robots" content="index, follow">
+          <meta http-equiv="Content-Language" content="it">
+    <script type="application/json" id="adsx_info">{"url":"https://us-nutra.com/diapril","affiliate_link":"","platformTracking":"drcash","platformSource":"dr.cash","type":"robusta_cod","product_name":"Diapril","language":"it","created_at":"2026-11-04T22:25:10.284Z","unique_id":"1793831109977_ktmgbujj"}</script>
+    <title>Diapril</title>
+    <style type="text/css">
+        :root {
+            --rn-primary: #102ec7;
+            --rn-primary-dark: #0a1f84;
+            --rn-primary-soft: #e5e8f5;
+            --rn-accent: #f9a825;
+            /* Botão no desenho do CTA da review (12/09/2026): dourado com texto escuro.
+               --rn-cta-ink é o tom legível do dourado sobre fundo claro (contorno). */
+            --rn-cta: #ffc107;
+            --rn-cta-light: #ffd54f;
+            --rn-cta-text: #1a1a1a;
+            --rn-cta-ink: #8a6100;
+            --rn-surface: #ffffff;
+            --rn-surface-alt: #f4f5fa;
+            --rn-text: #182226;
+            --rn-muted: #5a666c;
+        }
+        /* Montserrat nos títulos e no botão: sans pesada, padrão de página de vendas.
+           Poppins, geométrica, dava cara de app/SaaS (12/09/2026). */
+        h1,
+        h2,
+        h3,
+        .rn-bar h2,
+        .rn-cta {
+            font-family: "Montserrat", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+        }
+        h1,
+        h2,
+        h3 {
+            font-weight: 800;
+            letter-spacing: -0.01em;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            /* Nunito Sans no corpo: humanista e quente (da família da Muli das páginas
+               de referência), boa de ler no celular. Inter lia como tela de sistema. A pilha
+               do sistema fica como fallback — e e ela que atende os idiomas fora
+               do alfabeto latino, quando o Google nao serve o subset. */
+            font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            color: var(--rn-text);
+            background: var(--rn-surface);
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+        .rn-section {
+            padding: 56px 20px;
+        }
+        .rn-container {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+        .rn-section h2 {
+            font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+            line-height: 1.2;
+            margin: 0 0 18px;
+            color: var(--rn-primary-dark);
+            text-align: center;
+        }
+        .rn-section p {
+            font-size: 1.05rem;
+            margin: 0 0 14px;
+        }
+        /* Ritmo: as seções alternam fundo pela ordem em que existem, então seção
+           opcional ausente não deixa duas iguais seguidas. */
+        section:nth-of-type(even) {
+            background: var(--rn-surface-alt);
+        }
+        /* A solução é o pivô da página: cartão branco sobre a cor da marca. */
+        #rn-solution,
+        section#rn-solution:nth-of-type(even) {
+            background: var(--rn-primary);
+        }
+        #rn-solution .rn-split {
+            background: var(--rn-surface);
+            border-radius: 5px;
+            padding: 32px;
+        }
+        #rn-guarantee,
+        section#rn-guarantee:nth-of-type(even) {
+            background: var(--rn-primary-soft);
+        }
+        /* Fundo próprio vence a alternância: sem isto, o fechamento em posição
+           par ficava claro com texto branco (11/09/2026, com a seção de selos). */
+        #rn-final,
+        section#rn-final:nth-of-type(even) {
+            background: var(--rn-primary-dark);
+        }
+        .rn-img {
+            display: block;
+            margin: 24px auto 0;
+            border-radius: 5px;
+        }
+        .rn-cta {
+            display: inline-block;
+            /* Quebra linha: com nowrap um rótulo longo empurrava a página além da
+               largura do celular (531px num viewport de 390, 10/09/2026). */
+            white-space: normal;
+            max-width: 100%;
+            text-align: center;
+            text-transform: uppercase;
+            /* cor base editável via background-color; o degradê vai por cima */
+            background-color: var(--rn-cta);
+            background-image: linear-gradient(135deg, transparent, var(--rn-cta-light));
+            color: var(--rn-cta-text);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: clamp(0.98rem, 1.5vw, 1.08rem);
+            letter-spacing: 1px;
+            line-height: 1.35;
+            padding: 17px 44px;
+            border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        /* brilho que atravessa o botão em loop, como na review */
+        .rn-cta::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -200%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+            animation: rn-shimmer 3.5s linear infinite;
+            z-index: -1;
+        }
+        .rn-cta:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.34);
+        }
+        .rn-cta:hover::before {
+            animation-duration: 1.5s;
+        }
+        @keyframes rn-shimmer {
+            0% { left: -200%; }
+            50% { left: 100%; }
+            100% { left: -200%; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .rn-cta::before { animation: none; }
+        }
+        .rn-cta-wrap {
+            text-align: center;
+            margin-top: 28px;
+        }
+        /* Barra de topo: nome do produto como marca + CTA. Sem ela a página
+           abria "no meio" e parecia documento, não site. */
+        .rn-topbar {
+            background: var(--rn-primary-dark);
+            padding: 12px 20px;
+        }
+        .rn-topbar__row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .rn-brand {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 700;
+            font-size: 1.35rem;
+            color: #fff;
+            letter-spacing: 0.01em;
+        }
+        .rn-topbar__cta {
+            background-color: var(--rn-cta);
+            background-image: linear-gradient(135deg, transparent, var(--rn-cta-light));
+            color: var(--rn-cta-text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.92rem;
+            padding: 9px 18px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        /* Hero em cor cheia: é a dobra que decide se a página parece site. */
+        .rn-hero {
+            background: linear-gradient(135deg, var(--rn-primary-dark) 0%, var(--rn-primary) 100%);
+            color: #fff;
+            padding: 48px 20px 40px;
+            text-align: center;
+        }
+        .rn-hero h1 {
+            font-size: clamp(1.85rem, 4.2vw, 2.45rem);
+            line-height: 1.12;
+            margin: 0 0 14px;
+            color: #fff;
+        }
+        .rn-hero .rn-sub {
+            font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+            color: rgba(255, 255, 255, 0.85);
+            margin: 0 auto 14px;
+            max-width: 720px;
+        }
+        /* Prova e garantia da hero: discretas, no rodapé da seção e lado a lado,
+           para não disputar a atenção com o CTA (11/09/2026). */
+        .rn-hero__facts {
+            list-style: none;
+            margin: 36px auto 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 32px;
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 0.92rem;
+        }
+        .rn-hero__facts:empty {
+            display: none;
+        }
+        .rn-hero__facts li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .rn-hero__facts li::before {
+            content: "";
+            flex: 0 0 16px;
+            height: 16px;
+            opacity: 0.8;
+            background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10.5' fill='none' stroke='white' stroke-width='1.8'/><path d='M7.5 12.4l3 3 6-6.4' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/contain no-repeat;
+        }
+        .rn-stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+            margin-top: 8px;
+        }
+        /* Depoimento com foto grande: é onde o usuário põe a pessoa com o
+           produto, a prova social que a referência mostra em polaroid. */
+        .rn-story {
+            background: var(--rn-surface);
+            border: 1px solid var(--rn-primary-soft);
+            border-radius: 5px;
+            overflow: hidden;
+            padding-bottom: 20px;
+        }
+        .rn-story-photo {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            margin-bottom: 16px;
+        }
+        .rn-story p {
+            font-style: italic;
+            margin: 0 20px 12px;
+        }
+        .rn-story-name {
+            display: block;
+            margin: 0 20px;
+            font-weight: 700;
+            color: var(--rn-primary-dark);
+        }
+        .rn-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            counter-reset: rn-step;
+        }
+        .rn-step {
+            background: var(--rn-surface);
+            border-radius: 5px;
+            padding: 22px 22px 22px 64px;
+            position: relative;
+            border: 1px solid var(--rn-primary-soft);
+        }
+        .rn-step::before {
+            counter-increment: rn-step;
+            content: counter(rn-step);
+            position: absolute;
+            left: 18px;
+            top: 20px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--rn-primary);
+            color: #fff;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .rn-step h3 {
+            margin: 0 0 6px;
+            font-size: 1.1rem;
+            color: var(--rn-primary-dark);
+        }
+        .rn-step p {
+            margin: 0;
+            font-size: 0.98rem;
+        }
+        .rn-benefits-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 12px 24px;
+        }
+        .rn-benefits-list li {
+            position: relative;
+            padding-left: 34px;
+            font-size: 1.05rem;
+        }
+        .rn-benefits-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--rn-primary) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M6 12.5l4 4 8-9' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/14px no-repeat;
+        }
+        /* Regra de largura: texto corrido em .rn-narrow (720px, ~70 caracteres por
+           linha) e grade de cards no container cheio (920px). Sem isto, seções de
+           parágrafo ficam com linhas de larguras diferentes ao longo da página. */
+        .rn-narrow {
+            max-width: 720px;
+        }
+        .rn-ingredients {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 22px 18px;
+        }
+        /* Foto redonda + nome em etiqueta: o cartão de ingrediente vira selo,
+           não caixa de texto. */
+        .rn-ingredient {
+            text-align: center;
+            padding: 0;
+        }
+        .rn-ingredient-img {
+            display: block;
+            aspect-ratio: 1 / 1;
+            height: auto;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 14px;
+            border: 5px solid var(--rn-surface);
+            box-shadow: 0 6px 18px rgba(16, 46, 199, 0.16);
+        }
+        .rn-ingredient h3 {
+            display: inline-block;
+            background: var(--rn-primary);
+            color: #fff;
+            font-size: 0.98rem;
+            padding: 7px 16px;
+            border-radius: 5px;
+            margin: 0 0 8px;
+        }
+        .rn-ingredient p {
+            margin: 0;
+            font-size: 0.94rem;
+            color: var(--rn-muted);
+        }
+        .rn-guarantee-box {
+            background: var(--rn-surface);
+            border-radius: 5px;
+            padding: 32px 24px;
+            text-align: center;
+        }
+        .rn-guarantee-seal {
+            margin: 0 auto 12px;
+            display: block;
+        }
+        .rn-faq-item {
+            border-bottom: 1px solid var(--rn-primary-soft);
+            padding: 16px 0;
+        }
+        .rn-faq-item:last-child {
+            border-bottom: none;
+        }
+        .rn-faq-item h3 {
+            margin: 0 0 6px;
+            font-size: 1.05rem;
+            color: var(--rn-primary-dark);
+        }
+        .rn-faq-item p {
+            margin: 0;
+            font-size: 0.98rem;
+        }
+        .rn-final {
+            background: var(--rn-primary-dark);
+            color: #fff;
+            text-align: center;
+        }
+        .rn-final h2 {
+            color: #fff;
+        }
+        .rn-footer {
+            padding: 24px 20px 96px;
+            text-align: center;
+            color: var(--rn-muted);
+            font-size: 0.85rem;
+        }
+        .rn-disclaimer {
+            max-width: 760px;
+            margin: 0 auto 14px;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+        .rn-sticky {
+            display: none;
+        }
+        @media (max-width: 640px) {
+            .rn-brand { font-size: 1.1rem; }
+            .rn-split.rn-split--full .rn-ingredients { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 10px; }
+            .rn-topbar__cta { font-size: 0.82rem; padding: 8px 14px; }
+            .rn-section .rn-seals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .rn-section .rn-seal img { width: 96px; height: 96px; }
+            .rn-section {
+                padding: 40px 18px;
+            }
+            .rn-cta {
+                width: 100%;
+                text-align: center;
+            }
+            .rn-sticky {
+                display: block;
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+                background: rgba(255, 255, 255, 0.96);
+                border-top: 1px solid var(--rn-primary-soft);
+                box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.08);
+                z-index: 50;
+                transform: translateY(110%);
+                transition: transform 0.25s ease;
+            }
+            /* Só depois que o botão da hero sai da tela: antes ele cobria a imagem
+               da hero e somava 3 botões iguais em uma tela e meia (Page, 11/09/2026). */
+            .rn-sticky.is-visible {
+                transform: none;
+            }
+            .rn-section .rn-split.rn-split--full .rn-stories-grid:has(> :nth-child(4):last-child) {
+                grid-template-columns: minmax(0, 1fr);
+            }
+            .rn-sticky .rn-cta {
+                padding: 14px 20px;
+                font-size: 1.05rem;
+                box-shadow: none;
+            }
+        }
+        .rn-bar {
+            background: var(--rn-primary);
+            padding: 20px;
+        }
+        .rn-bar h2 {
+            color: #fff;
+            margin: 0;
+            text-align: center;
+            font-size: clamp(1.35rem, 3.1vw, 2rem);
+            line-height: 1.2;
+        }
+        .rn-bar + .rn-section {
+            padding-top: 40px;
+        }
+        .rn-hero__grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            align-items: center;
+            gap: 48px;
+            padding: 24px 0 8px;
+        }
+        .rn-hero__img {
+            width: 100%;
+            max-width: 460px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .rn-signals {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 18px;
+            display: grid;
+            gap: 12px;
+        }
+        .rn-signals li {
+            position: relative;
+            padding-left: 34px;
+            font-size: 1.05rem;
+        }
+        .rn-signals li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 3px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--rn-primary) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M6 12.5l4 4 8-9' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/14px no-repeat;
+        }
+        .rn-who__intro {
+            font-weight: 600;
+        }
+        .rn-who__not {
+            font-size: 0.92rem;
+            color: var(--rn-muted);
+            border-left: 3px solid var(--rn-accent);
+            padding-left: 14px;
+            margin-top: 20px;
+        }
+        .rn-contrasts {
+            display: grid;
+            gap: 12px;
+            margin-top: 22px;
+        }
+        .rn-contrast {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 14px;
+            background: var(--rn-surface);
+            border: 1px solid var(--rn-primary-soft);
+            border-radius: 5px;
+            padding: 14px 18px;
+        }
+        .rn-contrast__from {
+            color: var(--rn-muted);
+            text-decoration: line-through;
+            font-size: 0.98rem;
+        }
+        .rn-contrast__arrow {
+            color: var(--rn-primary);
+            font-weight: 700;
+        }
+        .rn-contrast__to {
+            color: var(--rn-primary-dark);
+            font-weight: 600;
+            font-size: 0.98rem;
+        }
+        @media (max-width: 860px) {
+            .rn-hero__grid {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 28px;
+            }
+            .rn-hero__text { order: 1; }
+            .rn-hero__media { order: 2; }
+            .rn-contrast {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+            .rn-contrast__arrow { display: none; }
+        }
+        .rn-expert__quote {
+            margin: 0 0 18px;
+            padding: 0 0 0 20px;
+            border-left: 4px solid var(--rn-primary);
+            font-size: 1.12rem;
+            font-style: italic;
+            line-height: 1.6;
+        }
+        .rn-expert__name {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.08rem;
+            color: var(--rn-primary-dark);
+        }
+        .rn-expert__credential {
+            margin: 2px 0 0;
+            font-size: 0.95rem;
+            color: var(--rn-muted);
+        }
+        /* Apresentação antes da citação: quem é a pessoa e o que ela fez (criou o
+           produto). Depois dela vinha a citação solta, e o leitor não sabia de quem
+           era a fala nem por que ouvi-la (12/09/2026). */
+        .rn-section .rn-expert__role {
+            margin: 0 0 18px;
+            font-size: 1.08rem;
+        }
+        /* Toda seção: texto numa coluna, imagem na outra, CTA ocupando as duas.
+           O lado da imagem alterna pela ordem das <section> presentes
+           (nth-of-type), então seção opcional que some não quebra o zigue-zague.
+           Sem imagem (o usuário apagou no editor) o texto ocupa a largura toda. */
+        .rn-split {
+            max-width: 1040px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 28px 48px;
+            align-items: center;
+        }
+        .rn-split__media img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        section:nth-of-type(even) .rn-split__media {
+            order: -1;
+        }
+        .rn-split__cta {
+            grid-column: 1 / -1;
+            margin-top: 4px;
+        }
+        .rn-split:not(:has(.rn-split__media img)) {
+            grid-template-columns: minmax(0, 1fr);
+            max-width: 720px;
+        }
+        .rn-split:not(:has(.rn-split__media img)) .rn-split__media {
+            display: none;
+        }
+        /* Grades de cards viram coluna única dentro da metade da largura. */
+        .rn-split .rn-steps,
+        .rn-split .rn-benefits-list,
+        .rn-split .rn-ingredients,
+        .rn-split .rn-stories-grid {
+            grid-template-columns: minmax(0, 1fr);
+        }
+        .rn-split__text > h2 {
+            text-align: left;
+        }
+        .rn-final .rn-split__text > h2 {
+            color: #fff;
+            margin: 0;
+        }
+        .rn-guarantee-box {
+            max-width: 1040px;
+        }
+        /* Seções de cards (ingredientes, depoimentos) usam a largura toda: a
+           imagem de cada uma está dentro dos cards, não numa coluna ao lado. */
+        .rn-split.rn-split--full,
+        .rn-split.rn-split--full:not(:has(.rn-split__media img)) {
+            grid-template-columns: minmax(0, 1fr);
+            max-width: 1040px;
+        }
+        .rn-split.rn-split--full .rn-ingredients {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+        .rn-split.rn-split--full .rn-stories-grid {
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+        .rn-split.rn-split--full .rn-stories-grid:has(> :nth-child(4):last-child) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            max-width: 780px;
+            margin: 0 auto;
+        }
+        /* Moldura fixa: a imagem preenche e fica centralizada — horizontal perde
+           as laterais, vertical perde topo e base. Nunca achata. Como a moldura
+           é aspect-ratio, ela acompanha a largura: diminuir pelo editor continua
+           funcionando. Hero, especialista e garantia são quadrados; as demais
+           seções, 4:3. No especialista o corte sobe, para não cortar a cabeça. */
+        .rn-hero__img,
+        .rn-split__media img {
+            object-fit: cover;
+            object-position: center;
+        }
+        .rn-hero__img {
+            aspect-ratio: 1 / 1;
+            border-radius: 5px;
+        }
+        .rn-split__media img {
+            aspect-ratio: 4 / 3;
+        }
+        #rn-expert .rn-split__media img,
+        #rn-guarantee .rn-split__media img {
+            aspect-ratio: 1 / 1;
+        }
+        #rn-expert .rn-split__media img {
+            object-position: center 20%;
+        }
+        /* Bônus: cards com capa em pé (e-book) e o número no canto. */
+        .rn-section .rn-bonuses__intro {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 22px;
+        }
+        .rn-bonuses {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+        .rn-bonus {
+            position: relative;
+            background: var(--rn-surface);
+            border: 1px solid var(--rn-primary-soft);
+            border-radius: 5px;
+            overflow: hidden;
+            padding-bottom: 16px;
+        }
+        .rn-bonus > div {
+            padding: 0 16px;
+        }
+        .rn-bonus-img {
+            display: block;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            object-position: center;
+        }
+        .rn-bonus-num {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--rn-accent);
+            color: var(--rn-text);
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .rn-bonus h3 {
+            margin: 14px 0 6px;
+            font-size: 1.05rem;
+            color: var(--rn-primary-dark);
+        }
+        .rn-bonus p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--rn-muted);
+        }
+        /* No celular o card deita: capa pequena ao lado do texto, senão cada
+           capa ocupava a tela inteira. */
+        @media (max-width: 640px) {
+            .rn-bonus {
+                display: grid;
+                grid-template-columns: 104px minmax(0, 1fr);
+                gap: 14px;
+                align-items: center;
+                padding: 12px;
+            }
+            .rn-bonus > div {
+                padding: 0;
+            }
+            .rn-bonus-img {
+                border-radius: 10px;
+            }
+            .rn-bonus h3 {
+                margin-top: 0;
+            }
+            .rn-bonus-num {
+                top: 4px;
+                left: 4px;
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+            }
+        }
+        /* Dois pesos de CTA (avaliação do Page, 11/09/2026): botão cheio só nos 5
+           momentos de decisão (hero, solução, histórias, garantia, fechamento); nos
+           demais, contorno. 17 botões iguais ensinavam o olho a ignorar todos. */
+        .rn-cta.rn-cta--ghost {
+            background: transparent;
+            color: var(--rn-cta-ink);
+            border: 2px solid var(--rn-cta);
+            box-shadow: none;
+            font-size: clamp(0.9rem, 1.4vw, 1rem);
+            padding: 12px 30px;
+        }
+        .rn-cta.rn-cta--ghost::before {
+            content: none;
+        }
+        .rn-cta.rn-cta--ghost:hover {
+            background-color: var(--rn-cta);
+            background-image: linear-gradient(135deg, transparent, var(--rn-cta-light));
+            color: var(--rn-cta-text);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        /* Faixa colorida só nas 4 aberturas de capítulo; nas outras seções o título
+           fica dentro da seção, alinhado ao texto, com um traço de destaque. */
+        .rn-bar__eyebrow {
+            display: block;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .rn-section__head {
+            max-width: 1040px;
+            margin: 0 auto 28px;
+        }
+        .rn-section .rn-section__head h2 {
+            text-align: left;
+            margin: 0;
+            font-size: clamp(1.5rem, 3vw, 2.05rem);
+            color: var(--rn-primary-dark);
+        }
+        .rn-section .rn-section__head h2::before {
+            content: "";
+            display: block;
+            width: 48px;
+            height: 4px;
+            border-radius: 2px;
+            background: var(--rn-cta);
+            margin-bottom: 14px;
+        }
+        #rn-solution .rn-section .rn-section__head h2,
+        #rn-solution .rn-section__head h2 {
+            color: #fff;
+        }
+        .rn-split__text .rn-steps {
+            margin-top: 18px;
+        }
+        /* Selos fixos (decisão do Victor, 11/09/2026): os 4 sempre, numa seção
+           própria antes do FAQ — fora da hero. */
+        .rn-seals {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 24px 18px;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+        .rn-seal {
+            text-align: center;
+        }
+        .rn-seal img {
+            display: block;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .rn-section .rn-seal h3 {
+            margin: 0;
+            font-size: 0.98rem;
+            color: var(--rn-primary-dark);
+        }
+        @media (max-width: 860px) {
+            .rn-split {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 24px;
+            }
+            section:nth-of-type(even) .rn-split__media {
+                order: 0;
+            }
+            .rn-split__media img {
+                max-width: 520px;
+                margin: 0 auto;
+            }
+            .rn-split__text > h2 {
+                text-align: center;
+            }
+        }
+        /* Robusta COD: os botões rolam até a seção do pedido. */
+        html {
+            scroll-behavior: smooth;
+        }
+        #rn-order,
+        section#rn-order:nth-of-type(even) {
+            background: var(--rn-primary-dark);
+        }
+        .rn-cta-note {
+            margin: 10px 0 0;
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+        .rn-section .rn-cta-note {
+            font-size: 0.9rem;
+            margin: 10px 0 0;
+        }
+        .rn-order .rn-container {
+            max-width: 1040px;
+        }
+        .rn-order h2 {
+            color: #fff;
+        }
+        .rn-section .rn-order__intro {
+            max-width: 680px;
+            margin: 0 auto 28px;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        .rn-order__grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 28px;
+            align-items: start;
+            text-align: left;
+        }
+        /* Filho direto: o h3 dos passos (.rn-step h3) fica com a cor dele. */
+        .rn-order__info > h3 {
+            color: #fff;
+            font-size: 1.25rem;
+            margin: 0 0 16px;
+        }
+        .rn-order__steps {
+            display: grid;
+            gap: 12px;
+            counter-reset: rn-step;
+        }
+        .rn-order__steps .rn-step {
+            color: var(--rn-text);
+        }
+        .rn-section .rn-order__norisk {
+            margin: 18px 0 0;
+            padding: 14px 16px;
+            border: 1px dashed rgba(255, 255, 255, 0.45);
+            border-radius: 5px;
+            color: #fff;
+        }
+        .rn-order__card {
+            background: var(--rn-surface);
+            color: var(--rn-text);
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+        }
+        .rn-order__product img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .rn-order__badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin: 16px 0 6px;
+        }
+        .rn-order__badges span {
+            background: var(--rn-primary-soft);
+            color: var(--rn-primary-dark);
+            font-weight: 700;
+            font-size: 0.82rem;
+            padding: 4px 12px;
+            border-radius: 999px;
+        }
+        .rn-order__price {
+            text-align: center;
+            font-family: "Montserrat", sans-serif;
+            font-weight: 800;
+            font-size: 2.2rem;
+            color: var(--rn-primary-dark);
+            margin: 4px 0 14px;
+        }
+        .rn-section .rn-order__shipping {
+            margin: -8px 0 14px;
+            text-align: center;
+            font-size: 0.88rem;
+            color: var(--rn-muted);
+        }
+        .rn-order .form-input {
+            width: 100%;
+            padding: 13px 14px;
+            margin-bottom: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: inherit;
+            color: var(--rn-text);
+            background: #fff;
+        }
+        .rn-order .form-input:focus {
+            outline: none;
+            border-color: var(--rn-primary);
+            box-shadow: 0 0 0 3px var(--rn-primary-soft);
+        }
+        .rn-order .cta-button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: none;
+            border-radius: 999px;
+            padding: 16px 20px;
+            cursor: pointer;
+            font-family: "Montserrat", sans-serif;
+            font-weight: 800;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            background-color: var(--rn-cta);
+            background-image: linear-gradient(135deg, transparent, var(--rn-cta-light));
+            color: var(--rn-cta-text);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+        }
+        /* Enquanto o lead é enviado o snippet desabilita o botão: spinner no lugar
+           do cadeado, como no cod_form (a rede leva ~2 s). */
+        .rn-order .cta-button[disabled] {
+            opacity: 0.85;
+            cursor: progress;
+        }
+        .rn-order .cta-button[disabled] .cta-icon {
+            display: none;
+        }
+        .rn-order .cta-spinner {
+            display: none;
+            width: 17px;
+            height: 17px;
+            border: 2px solid rgba(0, 0, 0, 0.25);
+            border-top-color: var(--rn-cta-text);
+            border-radius: 50%;
+            animation: rn-cta-spin 0.7s linear infinite;
+        }
+        .rn-order .cta-button[disabled] .cta-spinner {
+            display: inline-block;
+        }
+        @keyframes rn-cta-spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .rn-section .cta-note {
+            margin: 10px 0 0;
+            font-size: 0.82rem;
+            color: var(--rn-muted);
+            text-align: center;
+        }
+        .rn-thanks {
+            text-align: center;
+        }
+        .rn-thanks__icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 14px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--rn-primary-soft);
+            color: var(--rn-primary);
+        }
+        .rn-order .rn-thanks__title {
+            color: var(--rn-primary-dark);
+            font-size: 1.3rem;
+            margin: 0 0 8px;
+        }
+        .rn-thanks__info,
+        .rn-thanks__gift {
+            margin: 14px 0;
+            padding: 12px 14px;
+            border-radius: 5px;
+            background: var(--rn-surface-alt);
+            font-size: 0.95rem;
+            text-align: left;
+        }
+        .rn-thanks__gift span,
+        .rn-thanks__gift strong {
+            display: block;
+        }
+        .rn-section .rn-thanks__gift p {
+            margin: 4px 0 0;
+            font-size: 0.92rem;
+        }
+        @media (max-width: 760px) {
+            .rn-order__grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+            .rn-order__card {
+                padding: 18px;
+            }
+        }
+        
+    </style>
 </head>
-
 <body>
-  <header class="cd-topbar">
-    <svg class="cd-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 3h15v13H1z"></path><path d="M16 8h4l3 3v5h-7V8z"></path><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-    <span>Paghi solo alla consegna</span>
-    <span class="cd-timer"><svg class="cd-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg><span id="cd-timer-value">05:00</span></span><script>
-(function () {
-  var el = document.getElementById('cd-timer-value');
-  if (!el) return;
-  var left = 300;
-  var pad = function (n) { return (n < 10 ? '0' : '') + n; };
-  var tick = function () {
-    el.textContent = pad(Math.floor(left / 60)) + ':' + pad(left % 60);
-    if (left <= 0) { clearInterval(timer); return; }
-    left -= 1;
-  };
-  var timer = setInterval(tick, 1000);
-  tick();
-})();
-</script>
-  </header>
+    <div class="rn-topbar">
+        <div class="rn-container rn-topbar__row">
+            <span class="rn-brand">Diapril</span>
+            <a href="#rn-order" class="rn-topbar__cta">Richiedi la consegna a casa</a>
+        </div>
+    </div>
 
-  <main class="cd-wrap">
-    <section class="cd-hero">
-      <div class="cd-hero-head">
-        <h1 class="cd-headline">Prima lo ricevi, poi paghi</h1>
-        <p class="cd-product">Diapril</p>
-      </div>
-      <div class="cd-hero-media">
-        <img src="https://us-nutra.com/diapril/images/1793820555278-product.png" id="image" class="cd-hero-img" alt="Diapril" width="600" height="600" style="width: 100%; height: auto;">
-      </div>
-      <div class="cd-hero-buy">
-        <div class="cd-price"><p class="cd-price-old">Prima <s>58,00&nbsp;€</s></p><p class="cd-price-new">29,00&nbsp;€</p><p class="cd-saving">Risparmi 29,00&nbsp;€ (50%)</p></div><a class="cd-cta" href="https://natinutra.doctorpowerplus.com/l" data-mxhref="1">Ordina ora e paga alla consegna</a>
-        <ul class="cd-chips"><li class="cd-chip"><svg class="cd-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 3h15v13H1z"></path><path d="M16 8h4l3 3v5h-7V8z"></path><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg><span>Spedizione gratuita</span></li><li class="cd-chip"><svg class="cd-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg><span>Consegna programmata</span></li><li class="cd-chip"><svg class="cd-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"></rect><path d="M1 10h22"></path></svg><span>Non chiediamo la carta</span></li></ul>
-      </div>
+    <header class="rn-hero">
+        <div class="rn-container rn-hero__grid">
+            <div class="rn-hero__media"><img class="rn-hero__img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCI+PHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSI2MDAiIHJ4PSI4IiBmaWxsPSIjZTVlOGY1Ii8+PGNpcmNsZSBjeD0iMzAwIiBjeT0iMzMwIiByPSIyMTAiIGZpbGw9IiNmYWZkZmUiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMjAgMTUwKSI+PHJlY3QgeD0iNjAuOTAwMDAwMDAwMDAwMDA2IiB5PSIwIiB3aWR0aD0iNDYuMiIgaGVpZ2h0PSIzNS43IiByeD0iNi4zMDAwMDAwMDAwMDAwMDEiIGZpbGw9IiMxMDJlYzciIG9wYWNpdHk9IjEiLz48cmVjdCB4PSI1Mi41IiB5PSIzMS41IiB3aWR0aD0iNjMiIGhlaWdodD0iMTguOTAwMDAwMDAwMDAwMDAyIiByeD0iNC4yIiBmaWxsPSIjMTgyMjI2IiBvcGFjaXR5PSIwLjg1Ii8+PHJlY3QgeD0iNDIiIHk9IjIyOC45IiB3aWR0aD0iODQiIGhlaWdodD0iOC40IiByeD0iNC4yIiBmaWxsPSIjOWFhOGFlIiBvcGFjaXR5PSIwLjUiLz48cmVjdCB4PSI1NC42IiB5PSIyNDUuNzAwMDAwMDAwMDAwMDIiIHdpZHRoPSI1OC44MDAwMDAwMDAwMDAwMDQiIGhlaWdodD0iOC40IiByeD0iNC4yIiBmaWxsPSIjOWFhOGFlIiBvcGFjaXR5PSIwLjM1Ii8+PHJlY3QgeD0iMjEiIHk9IjQ4LjMwMDAwMDAwMDAwMDAwNCIgd2lkdGg9IjEyNiIgaGVpZ2h0PSIyMjQuNzAwMDAwMDAwMDAwMDIiIHJ4PSIyMy4xIiBmaWxsPSIjZmFmZGZlIiBzdHJva2U9IiMxODIyMjYiIHN0cm9rZS1vcGFjaXR5PSIwLjEyIiBzdHJva2Utd2lkdGg9IjMuMTUwMDAwMDAwMDAwMDAwNCIvPjxyZWN0IHg9IjIxIiB5PSIxMDAuODAwMDAwMDAwMDAwMDEiIHdpZHRoPSIxMjYiIGhlaWdodD0iMTE1LjUiIGZpbGw9IiM1YzcwZDYiLz48Y2lyY2xlIGN4PSI4NCIgY3k9IjE1OC41NSIgcj0iMzEuNSIgZmlsbD0iI2ZhZmRmZSIvPjxwYXRoIGQ9Ik02OS4zIDE2MC42NSBsOS40NTAwMDAwMDAwMDAwMDEgOS40NTAwMDAwMDAwMDAwMDEgbDIxIC0yMy4xIiBmaWxsPSJub25lIiBzdHJva2U9IiMxMDJlYzciIHN0cm9rZS13aWR0aD0iNi4zMDAwMDAwMDAwMDAwMDEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvZz48ZWxsaXBzZSBjeD0iMzAwIiBjeT0iNTYwIiByeD0iMTcwIiByeT0iMTYiIGZpbGw9IiMxODIyMjYiIG9wYWNpdHk9IjAuMDgiLz48L3N2Zz4=" alt="Diapril" width="600" height="600" style="width:100%;max-width:100%;height:auto"></div>
+            <div class="rn-hero__text">
+                <h1>Ripristina la funzione del pancreas e stimola la naturale produzione di insulina</h1>
+                <p class="rn-sub">Una formula naturale progettata per aiutare a regolare la glicemia, migliorare il metabolismo e restituirti l'energia necessaria per le tue giornate.</p>
+                <div class="rn-cta-wrap">
+                    <a href="#rn-order" class="rn-cta">Richiedi la consegna a casa</a>
+                    <p class="rn-cta-note">Você só paga quando receber em casa</p>
+                </div>
+            </div>
+        </div>
+        <ul class="rn-container rn-hero__facts"><li>Paghi solo alla consegna, rischio zero per te</li></ul>
+    </header>
+
+
+    <div class="rn-bar"><h2>Questo approccio fa per te se senti che il tuo corpo ha bisogno di aiuto</h2></div>
+    <section class="rn-section" id="rn-who">
+        <div class="rn-split">
+            <div class="rn-split__text">
+                <p class="rn-who__intro">Se ti riconosci in queste situazioni quotidiane, questo supporto naturale è stato pensato proprio per le tue esigenze:</p>
+                <ul class="rn-signals"><li>Ti senti sempre stanco e sopraffatto dalla sonnolenza durante il giorno.</li><li>Avverti il bisogno di andare in bagno con frequenza eccessiva.</li><li>Soffri di picchi glicemici improvvisi subito dopo aver mangiato.</li><li>Senti che la tua vita è cambiata negativamente dopo la diagnosi.</li></ul>
+                
+            </div>
+            <div class="rn-split__media"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIHJ4PSI4IiBmaWxsPSIjZTVlOGY1Ii8+PGNpcmNsZSBjeD0iNTkwIiBjeT0iMTcwIiByPSI2NCIgZmlsbD0iI2Y5YTgyNSIgb3BhY2l0eT0iMC45Ii8+PHBhdGggZD0iTTAgNDcwIEwyMzAgMjUwIEw0MDAgNDEwIEw1MjAgMzAwIEw4MDAgNTIwIFY2MDAgSDAgWiIgZmlsbD0iIzVjNzBkNiIgb3BhY2l0eT0iMC43NSIvPjxwYXRoIGQ9Ik0wIDU0MCBDMjAwIDQ0MCAzNjAgNTYwIDU2MCA0ODAgQzY4MCA0MzAgNzQwIDQ3MCA4MDAgNDUwIFY2MDAgSDAgWiIgZmlsbD0iIzEwMmVjNyIvPjwvc3ZnPg==" alt="Diapril" width="800" height="600" loading="lazy" style="width:100%;max-width:100%;height:auto"></div>
+            
+            <div class="rn-split__cta rn-cta-wrap"><a href="#rn-order" class="rn-cta rn-cta--ghost">Voglio ricevere il pacco</a></div>
+            
+        </div>
     </section>
 
-    <section class="cd-section cd-how">
-      <h2 class="cd-title">Come funziona</h2>
-      <div class="cd-how-grid">
-        <div class="cd-how-media">
-          <img src="https://us-nutra.com/diapril/images/1793820568176-bl1-img3.webp" id="image_middle" class="cd-how-img" alt="Diapril" width="600" height="600" style="width: 100%; height: auto;">
+    <section class="rn-section" id="rn-problem">
+        <div class="rn-section__head"><h2>Ti senti costantemente stanco e intrappolato nel controllo continuo dei tuoi zuccheri?</h2></div>
+        <div class="rn-split">
+            <div class="rn-split__text">
+                <p><strong>La fatica e la sonnolenza costante</strong> sono diventate compagne inseparabili delle tue giornate, rendendo difficile ogni semplice attività. Il monitoraggio continuo e la dipendenza da farmaci ti fanno sentire come se la tua vita fosse limitata da un numero sul display di un glucometro.</p><p>Se continui a ignorare il malfunzionamento del tuo metabolismo, il rischio è di vedere la tua salute declinare ulteriormente. Senza un intervento che miri alla causa, continuerai a subire sbalzi glicemici improvvisi e una stanchezza cronica che ti impedisce di vivere serenamente.</p>
+            </div>
+            <div class="rn-split__media"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIHJ4PSI4IiBmaWxsPSIjZTVlOGY1Ii8+PGNpcmNsZSBjeD0iNTkwIiBjeT0iMTcwIiByPSI2NCIgZmlsbD0iI2Y5YTgyNSIgb3BhY2l0eT0iMC45Ii8+PHBhdGggZD0iTTAgNDcwIEwyMzAgMjUwIEw0MDAgNDEwIEw1MjAgMzAwIEw4MDAgNTIwIFY2MDAgSDAgWiIgZmlsbD0iIzVjNzBkNiIgb3BhY2l0eT0iMC43NSIvPjxwYXRoIGQ9Ik0wIDU0MCBDMjAwIDQ0MCAzNjAgNTYwIDU2MCA0ODAgQzY4MCA0MzAgNzQwIDQ3MCA4MDAgNDUwIFY2MDAgSDAgWiIgZmlsbD0iIzEwMmVjNyIvPjwvc3ZnPg==" alt="Diapril" width="800" height="600" loading="lazy" style="width:100%;max-width:100%;height:auto"></div>
+            
+            <div class="rn-split__cta rn-cta-wrap"><a href="#rn-order" class="rn-cta rn-cta--ghost">Inizia a cambiare oggi</a></div>
+            
         </div>
-        <ol class="cd-steps">
-          <li class="cd-step">
-            <span class="cd-step-n">1</span>
-            <div>
-              <h3 class="cd-step-title">Fai l'ordine</h3>
-              <p class="cd-step-text">Inserisci solo nome, telefono e indirizzo. Non chiediamo né carta né documenti.</p>
-            </div>
-          </li>
-          <li class="cd-step">
-            <span class="cd-step-n">2</span>
-            <div>
-              <h3 class="cd-step-title">Il tuo ordine è confermato</h3>
-              <p class="cd-step-text">Ricevi la conferma con i dati della consegna.</p>
-            </div>
-          </li>
-          <li class="cd-step">
-            <span class="cd-step-n">3</span>
-            <div>
-              <h3 class="cd-step-title">Ricevilo a casa</h3>
-              <p class="cd-step-text">Il prodotto arriva all'indirizzo che hai indicato.</p>
-            </div>
-          </li>
-          <li class="cd-step">
-            <span class="cd-step-n">4</span>
-            <div>
-              <h3 class="cd-step-title">Paga il corriere</h3>
-              <p class="cd-step-text">Paghi solo quando hai il prodotto tra le mani.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
     </section>
 
-    <section class="cd-section cd-assurance">
-      <div class="cd-assurance-grid">
-        <div class="cd-guarantee cd-no-data">
-          <div class="cd-guarantee-icon">
-            <svg class="cd-icon" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"></rect><path d="M1 10h22"></path><path d="M3 2l18 20"></path></svg>
-          </div>
-          <div>
-            <h2 class="cd-title">Non chiediamo né carta né documenti</h2>
-            <p class="cd-guarantee-text">Per ordinare inserisci solo nome, telefono e indirizzo di consegna. Non chiediamo né carta di credito né documenti. Paghi direttamente al corriere quando arriva il prodotto.</p>
-          </div>
+    
+    <div class="rn-bar"><span class="rn-bar__eyebrow">La scoperta</span><h2>Perché le soluzioni che hai provato finora non hanno risolto il problema</h2></div>
+    <section class="rn-section" id="rn-discovery">
+        <div class="rn-split">
+            <div class="rn-split__text">
+                <p><strong>Il vero ostacolo al tuo benessere</strong> risiede in due meccanismi principali: il malfunzionamento del pancreas nella secrezione di insulina e la perdita di sensibilità delle cellule all'ormone. Spesso, i trattamenti convenzionali si limitano a mascherare i sintomi superficiali senza agire sulla radice del malfunzionamento metabolico.</p><p>Ecco perché, nonostante gli sforzi, continui a sentirti affaticato e fuori controllo. <strong>Agire sulla causa profonda</strong> è l'unico modo per permettere al tuo organismo di riprendere le sue funzioni naturali e ritrovare la stabilità desiderata.</p>
+                <div class="rn-contrasts"><div class="rn-contrast"><span class="rn-contrast__from">Controllare solo i sintomi con farmaci,</span><span class="rn-contrast__arrow">&rarr;</span><span class="rn-contrast__to"><strong>Diapril</strong> agisce sulla resistenza insulinica e sulla funzione pancreatica.</span></div><div class="rn-contrast"><span class="rn-contrast__from">Accettare la fatica cronica,</span><span class="rn-contrast__arrow">&rarr;</span><span class="rn-contrast__to">Aiuta a ripristinare il metabolismo energetico naturale.</span></div><div class="rn-contrast"><span class="rn-contrast__from">Lottare contro il peso in eccesso,</span><span class="rn-contrast__arrow">&rarr;</span><span class="rn-contrast__to">Supporta la gestione del peso bloccando la voglia di zuccheri.</span></div></div>
+            </div>
+            <div class="rn-split__media"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIHJ4PSI4IiBmaWxsPSIjZTVlOGY1Ii8+PGNpcmNsZSBjeD0iNTkwIiBjeT0iMTcwIiByPSI2NCIgZmlsbD0iI2Y5YTgyNSIgb3BhY2l0eT0iMC45Ii8+PHBhdGggZD0iTTAgNDcwIEwyMzAgMjUwIEw0MDAgNDEwIEw1MjAgMzAwIEw4MDAgNTIwIFY2MDAgSDAgWiIgZmlsbD0iIzVjNzBkNiIgb3BhY2l0eT0iMC43NSIvPjxwYXRoIGQ9Ik0wIDU0MCBDMjAwIDQ0MCAzNjAgNTYwIDU2MCA0ODAgQzY4MCA0MzAgNzQwIDQ3MCA4MDAgNDUwIFY2MDAgSDAgWiIgZmlsbD0iIzEwMmVjNyIvPjwvc3ZnPg==" alt="Diapril" width="800" height="600" loading="lazy" style="width:100%;max-width:100%;height:auto"></div>
+            
+            <div class="rn-split__cta rn-cta-wrap"><a href="#rn-order" class="rn-cta rn-cta--ghost">Richiedi ora il prodotto</a></div>
+            
         </div>
-        <div class="cd-guarantee">
-          <div class="cd-guarantee-icon">
-            <svg class="cd-icon" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
-          </div>
-          <div>
-            <h2 class="cd-title">Non ti piace? Non paghi</h2>
-            <p class="cd-guarantee-text">Se alla consegna del prodotto non sei soddisfatto, non devi pagare nulla. Il reso è immediato.</p>
-          </div>
+    </section>
+    
+
+    <section class="rn-section" id="rn-solution">
+        <div class="rn-section__head"><h2>Un approccio multifocale per riattivare le funzioni naturali del tuo organismo</h2></div>
+        <div class="rn-split">
+            <div class="rn-split__text">
+                <p><strong>Diapril</strong> è un integratore in formato naturale formulato per supportare chi lotta quotidianamente con i livelli di glucosio e il peso corporeo. Il suo obiettivo principale è favorire l'equilibrio metabolico e proteggere il sistema vascolare, agendo come un alleato quotidiano per il tuo benessere.</p><p><strong>Il prodotto agisce direttamente sulle cellule beta</strong> del pancreas e sulle cellule-alvo, stimolando la produzione naturale di insulina e aumentando la sensibilità dei tessuti all'ormone. In questo modo, aiuta a contrastare la resistenza insulinica, permettendo al tuo corpo di tornare a gestire i nutrienti in modo più efficiente.</p>
+                <div class="rn-steps"><div class="rn-step"><h3>Riattivazione delle cellule pancreatiche</h3><p>La formula agisce riparando le cellule danneggiate del pancreas, stimolando la secrezione corretta di insulina per mantenere i livelli glicemici sotto controllo.</p></div><div class="rn-step"><h3>Miglioramento della sensibilità insulinica</h3><p>Aumenta la capacità delle tue cellule di rispondere all'insulina, riducendo la resistenza che spesso causa picchi glicemici pericolosi dopo ogni pasto.</p></div><div class="rn-step"><h3>Regolazione del metabolismo energetico</h3><p>Blocca i recettori gustativi che reagiscono allo zucchero e accelera il metabolismo, aiutandoti a gestire meglio il peso e a ritrovare la tua vitalità.</p></div></div>
+            </div>
+            <div class="rn-split__media"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIHJ4PSI4IiBmaWxsPSIjZmFmZGZlIi8+PGNpcmNsZSBjeD0iNDAwIiBjeT0iMzYwIiByPSIyNTAiIGZpbGw9IiNlNWU4ZjUiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMzAgMjAwKSI+PHJlY3QgeD0iNDkuMyIgeT0iMCIgd2lkdGg9IjM3LjQiIGhlaWdodD0iMjguOSIgcng9IjUuMSIgZmlsbD0iIzEwMmVjNyIgb3BhY2l0eT0iMSIvPjxyZWN0IHg9IjQyLjUiIHk9IjI1LjUiIHdpZHRoPSI1MSIgaGVpZ2h0PSIxNS4yOTk5OTk5OTk5OTk5OTkiIHJ4PSIzLjQiIGZpbGw9IiMxODIyMjYiIG9wYWNpdHk9IjAuODUiLz48cmVjdCB4PSIzNCIgeT0iMTg1LjI5OTk5OTk5OTk5OTk4IiB3aWR0aD0iNjgiIGhlaWdodD0iNi44IiByeD0iMy40IiBmaWxsPSIjOWFhOGFlIiBvcGFjaXR5PSIwLjUiLz48cmVjdCB4PSI0NC4xOTk5OTk5OTk5OTk5OTYiIHk9IjE5OC45IiB3aWR0aD0iNDcuNiIgaGVpZ2h0PSI2LjgiIHJ4PSIzLjQiIGZpbGw9IiM5YWE4YWUiIG9wYWNpdHk9IjAuMzUiLz48cmVjdCB4PSIxNyIgeT0iMzkuMSIgd2lkdGg9IjEwMiIgaGVpZ2h0PSIxODEuOSIgcng9IjE4LjciIGZpbGw9IiNmYWZkZmUiIHN0cm9rZT0iIzE4MjIyNiIgc3Ryb2tlLW9wYWNpdHk9IjAuMTIiIHN0cm9rZS13aWR0aD0iMi41NSIvPjxyZWN0IHg9IjE3IiB5PSI4MS42IiB3aWR0aD0iMTAyIiBoZWlnaHQ9IjkzLjUiIGZpbGw9IiM1YzcwZDYiLz48Y2lyY2xlIGN4PSI2OCIgY3k9IjEyOC4zNSIgcj0iMjUuNSIgZmlsbD0iI2ZhZmRmZSIvPjxwYXRoIGQ9Ik01Ni4xIDEzMC4wNDk5OTk5OTk5OTk5OCBsNy42NDk5OTk5OTk5OTk5OTk1IDcuNjQ5OTk5OTk5OTk5OTk5NSBsMTcgLTE4LjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwMmVjNyIgc3Ryb2tlLXdpZHRoPSI1LjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMjAgMTQwKSI+PHJlY3QgeD0iNjAuOTAwMDAwMDAwMDAwMDA2IiB5PSIwIiB3aWR0aD0iNDYuMiIgaGVpZ2h0PSIzNS43IiByeD0iNi4zMDAwMDAwMDAwMDAwMDEiIGZpbGw9IiMxMDJlYzciIG9wYWNpdHk9IjEiLz48cmVjdCB4PSI1Mi41IiB5PSIzMS41IiB3aWR0aD0iNjMiIGhlaWdodD0iMTguOTAwMDAwMDAwMDAwMDAyIiByeD0iNC4yIiBmaWxsPSIjMTgyMjI2IiBvcGFjaXR5PSIwLjg1Ii8+PHJlY3QgeD0iNDIiIHk9IjIyOC45IiB3aWR0aD0iODQiIGhlaWdodD0iOC40IiByeD0iNC4yIiBmaWxsPSIjOWFhOGFlIiBvcGFjaXR5PSIwLjUiLz48cmVjdCB4PSI1NC42IiB5PSIyNDUuNzAwMDAwMDAwMDAwMDIiIHdpZHRoPSI1OC44MDAwMDAwMDAwMDAwMDQiIGhlaWdodD0iOC40IiByeD0iNC4yIiBmaWxsPSIjOWFhOGFlIiBvcGFjaXR5PSIwLjM1Ii8+PHJlY3QgeD0iMjEiIHk9IjQ4LjMwMDAwMDAwMDAwMDAwNCIgd2lkdGg9IjEyNiIgaGVpZ2h0PSIyMjQuNzAwMDAwMDAwMDAwMDIiIHJ4PSIyMy4xIiBmaWxsPSIjZmFmZGZlIiBzdHJva2U9IiMxODIyMjYiIHN0cm9rZS1vcGFjaXR5PSIwLjEyIiBzdHJva2Utd2lkdGg9IjMuMTUwMDAwMDAwMDAwMDAwNCIvPjxyZWN0IHg9IjIxIiB5PSIxMDAuODAwMDAwMDAwMDAwMDEiIHdpZHRoPSIxMjYiIGhlaWdodD0iMTE1LjUiIGZpbGw9IiM1YzcwZDYiLz48Y2lyY2xlIGN4PSI4NCIgY3k9IjE1OC41NSIgcj0iMzEuNSIgZmlsbD0iI2ZhZmRmZSIvPjxwYXRoIGQ9Ik02OS4zIDE2MC42NSBsOS40NTAwMDAwMDAwMDAwMDEgOS40NTAwMDAwMDAwMDAwMDEgbDIxIC0yMy4xIiBmaWxsPSJub25lIiBzdHJva2U9IiMxMDJlYzciIHN0cm9rZS13aWR0aD0iNi4zMDAwMDAwMDAwMDAwMDEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1MzAgMjAwKSI+PHJlY3QgeD0iNDkuMyIgeT0iMCIgd2lkdGg9IjM3LjQiIGhlaWdodD0iMjguOSIgcng9IjUuMSIgZmlsbD0iIzEwMmVjNyIgb3BhY2l0eT0iMSIvPjxyZWN0IHg9IjQyLjUiIHk9IjI1LjUiIHdpZHRoPSI1MSIgaGVpZ2h0PSIxNS4yOTk5OTk5OTk5OTk5OTkiIHJ4PSIzLjQiIGZpbGw9IiMxODIyMjYiIG9wYWNpdHk9IjAuODUiLz48cmVjdCB4PSIzNCIgeT0iMTg1LjI5OTk5OTk5OTk5OTk4IiB3aWR0aD0iNjgiIGhlaWdodD0iNi44IiByeD0iMy40IiBmaWxsPSIjOWFhOGFlIiBvcGFjaXR5PSIwLjUiLz48cmVjdCB4PSI0NC4xOTk5OTk5OTk5OTk5OTYiIHk9IjE5OC45IiB3aWR0aD0iNDcuNiIgaGVpZ2h0PSI2LjgiIHJ4PSIzLjQiIGZpbGw9IiM5YWE4YWUiIG9wYWNpdHk9IjAuMzUiLz48cmVjdCB4PSIxNyIgeT0iMzkuMSIgd2lkdGg9IjEwMiIgaGVpZ2h0PSIxODEuOSIgcng9IjE4LjciIGZpbGw9IiNmYWZkZmUiIHN0cm9rZT0iIzE4MjIyNiIgc3Ryb2tlLW9wYWNpdHk9IjAuMTIiIHN0cm9rZS13aWR0aD0iMi41NSIvPjxyZWN0IHg9IjE3IiB5PSI4MS42IiB3aWR0aD0iMTAyIiBoZWlnaHQ9IjkzLjUiIGZpbGw9IiM1YzcwZDYiLz48Y2lyY2xlIGN4PSI2OCIgY3k9IjEyOC4zNSIgcj0iMjUuNSIgZmlsbD0iI2ZhZmRmZSIvPjxwYXRoIGQ9Ik01Ni4xIDEzMC4wNDk5OTk5OTk5OTk5OCBsNy42NDk5OTk5OTk5OTk5OTk1IDcuNjQ5OTk5OTk5OTk5OTk5NSBsMTcgLTE4LjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwMmVjNyIgc3Ryb2tlLXdpZHRoPSI1LjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvZz48ZWxsaXBzZSBjeD0iNDAwIiBjeT0iNTYwIiByeD0iMjYwIiByeT0iMTgiIGZpbGw9IiMxODIyMjYiIG9wYWNpdHk9IjAuMDgiLz48Y2lyY2xlIGN4PSI2NDAiIGN5PSIxMjAiIHI9IjQ2IiBmaWxsPSIjZjlhODI1Ii8+PHBhdGggZD0iTTYyMCAxMjIgbDE0IDE0IGwyOCAtMzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZhZmRmZSIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4=" alt="Diapril" width="800" height="600" loading="lazy" style="width:100%;max-width:100%;height:auto"></div>
+            
+            <div class="rn-split__cta rn-cta-wrap"><a href="#rn-order" class="rn-cta">Ricevi a casa tua</a><p class="rn-cta-note">Você só paga quando receber em casa</p></div>
+            
         </div>
-      </div>
+    </section>
+
+    
+    <section class="rn-section" id="rn-expert">
+        <div class="rn-section__head"><h2>Il parere di un esperto sul meccanismo d'azione</h2></div>
+        <div class="rn-split">
+            <div class="rn-split__text">
+                <p class="rn-expert__role">Il professor Alberto Mastella, esperto in endocrinologia, analizza come questo approccio influenzi il funzionamento cellulare e ormonale del corpo.</p>
+                <blockquote class="rn-expert__quote"><strong>Diapril</strong> stimola la produzione di insulina, guarisce il pancreas e ripara le cellule organiche danneggiate. Inoltre, favorisce l'aumento della sensibilità all'ormone menzionato.</blockquote>
+                <p class="rn-expert__name">Alberto Mastella</p>
+                <p class="rn-expert__credential">endocrinologo praticante, Professore della Facoltà di Endocrinologia</p>
+            </div>
+            <div class="rn-split__media"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCI+PHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSI2MDAiIHJ4PSI4IiBmaWxsPSIjZTVlOGY1Ii8+PGNpcmNsZSBjeD0iMzAwIiBjeT0iMjUwIiByPSIxNTAiIGZpbGw9IiNmYWZkZmUiLz48cGF0aCBkPSJNMTEwIDYwMCBjMCAtMTUwIDg1IC0yMTUgMTkwIC0yMTUgczE5MCA2NSAxOTAgMjE1IHoiIGZpbGw9IiMxMDJlYzciLz48cGF0aCBkPSJNMjYyIDM4OCBMMzAwIDQzMCBMMzM4IDM4OCBaIiBmaWxsPSIjZmFmZGZlIiBvcGFjaXR5PSIwLjkiLz48Y2lyY2xlIGN4PSIzMDAiIGN5PSIyNTAiIHI9Ijg2IiBmaWxsPSIjZThjOWE4Ii8+PHBhdGggZD0iTTIxNCAyNDYgYzAgLTU4IDM5IC05MiA4NiAtOTIgczg2IDM0IDg2IDkyIGMtMTQgLTMwIC00NCAtNDQgLTg2IC00NCBzLTcyIDE0IC04NiA0NCB6IiBmaWxsPSIjMTgyMjI2IiBvcGFjaXR5PSIwLjgyIi8+PC9zdmc+" alt="Alberto Mastella" width="600" height="600" loading="lazy" style="width:100%;max-width:100%;height:auto"></div>
+            
+            <div class="rn-split__cta rn-cta-wrap"><a href="#rn-order" class="rn-cta rn-cta--ghost">Ordina ora il prodotto</a></div>
+            
+        </div>
+    </section>
+    
+
+    
+    <section class="rn-section" id="rn-ingredients">
+        <div class="rn-section__head"><h2>Una composizione naturale per un supporto mirato e sicuro</h2></div>
+        <div class="rn-split rn-split--full">
+            <div class="rn-split__text">
+                <div class="rn-ingredients"><div class="rn-ingredient"><img class="rn-ingredient-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDAgNDAwIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNlNWU4ZjUiLz48Y2lyY2xlIGN4PSIyMDAiIGN5PSIyMTUiIHI9IjEyMCIgZmlsbD0iI2ZhZmRmZSIvPjxyZWN0IHg9IjEzMCIgeT0iMTUwIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjEzMCIgcng9IjE4IiBmaWxsPSIjNWM3MGQ2Ii8+PHBhdGggZD0iTTE2NSAyMTUgbDI1IDI1IGw0OCAtNTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZhZmRmZSIgc3Ryb2tlLXdpZHRoPSIxNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PGNpcmNsZSBjeD0iMjg1IiBjeT0iMTIwIiByPSIzMCIgZmlsbD0iI2Y5YTgyNSIgb3BhY2l0eT0iMC45Ii8+PC9zdmc+" alt="Banaba" width="400" height="400" loading="lazy" style="width:150px;max-width:100%;height:auto"><div><h3>Banaba</h3><p>Contiene acido corosolico che aiuta a ridurre la glicemia e acido gallico per favorire la riduzione del colesterolo.</p></div></div><div class="rn-ingredient"><img class="rn-ingredient-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDAgNDAwIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNlNWU4ZjUiLz48Y2lyY2xlIGN4PSIyMDAiIGN5PSIyMTUiIHI9IjEyMCIgZmlsbD0iI2ZhZmRmZSIvPjxyZWN0IHg9IjEzMCIgeT0iMTUwIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjEzMCIgcng9IjE4IiBmaWxsPSIjNWM3MGQ2Ii8+PHBhdGggZD0iTTE2NSAyMTUgbDI1IDI1IGw0OCAtNTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZhZmRmZSIgc3Ryb2tlLXdpZHRoPSIxNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PGNpcmNsZSBjeD0iMjg1IiBjeT0iMTIwIiByPSIzMCIgZmlsbD0iI2Y5YTgyNSIgb3BhY2l0eT0iMC45Ii8+PC9zdmc+" alt="Tribulus Terrestris" width="400" height="400" loading="lazy" style="width:150px;max-width:100%;height:auto"><div><h3>Tribulus Terrestris</h3><p>Ricco di glicosidi che esercitano un effetto benefico simile a quello dell'insulina nel tuo organismo.</p></div></div><div class="rn-ingredient"><img class="rn-ingredient-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDAgNDAwIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNlNWU4ZjUiLz48Y2lyY2xlIGN4PSIyMDAiIGN5PSIyMTUiIHI9IjEyMCIgZmlsbD0iI2ZhZmRmZSIvPjxyZWN0IHg9IjEzMCIgeT0iMTUwIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjEzMCIgcng9IjE4IiBmaWxsPSIjNWM3MGQ2Ii8+PHBhdGggZD0iTTE2NSAyMTUgbDI1IDI1IGw0OCAtNTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZhZmRmZSIgc3Ryb2tlLXdpZHRoPSIxNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PGNpcmNsZSBjeD0iMjg1IiBjeT0iMTIwIiByPSIzMCIgZmlsbD0iI2Y5YTgyNSIgb3BhY2l0eT0iMC45Ii8+PC9zdmc+" alt="Cannella" width="400" height="400" loading="lazy" style="width:150px;max-width:100%;height:auto"><div><h3>Cannella</h3><p>Accelera il metabolismo, contribuisce a ridurre la glicemia e aumenta la sensibilità dei tessuti all'insulina.</p></div></div><div class="rn-ingredient"><img class="rn-ingredient-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDAgNDAwIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNlNWU4ZjUiLz48Y2lyY2xlIGN4PSIyMDAiIGN5PSIyMTUiIHI9IjEyMCIgZmlsbD0iI2ZhZmRmZSIvPjxyZWN0IHg9IjEzMCIgeT0iMTUwIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjEzMCIgcng9IjE4IiBmaWxsPSIjNWM3MGQ2Ii8+PHBhdGggZD0iTTE2NSAyMTUgbDI1IDI1IGw0OCAtNTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZhZmRmZSIgc3Ryb2tlLXdpZHRoPSIxNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PGNpcmNsZSBjeD0iMjg1IiBjeT0iMTIwIiByPSIzMCIgZmlsbD0iI2Y5YTgyNSIgb3BhY2l0eT0iMC45Ii8+PC9zdmc+" alt="Ginkgo Biloba" width="400" height="400" loading="lazy" style="width:150px;max-width:100%;height:auto"><div><h3>Ginkgo Biloba</h3><p>Agisce sulle cellule pancreatiche e possiede un effetto vasodilatatore che rinforza i vasi sanguigni.</p></div></div></div>
+            </div>
+            
+            <div class="rn-split__cta rn-cta-wrap"><a href="#rn-order" class="rn-cta rn-cta--ghost">Richiedi la tua fornitura</a></div>
+            
+        </div>
+    </section>
+    
+
+    
+    <div class="rn-bar"><h2>Le storie di chi ha scelto di riprendere in mano la propria vita</h2></div>
+    <section class="rn-section" id="rn-stories">
+        <div class="rn-split rn-split--full">
+            <div class="rn-split__text">
+                <div class="rn-stories-grid"><div class="rn-story"><img class="rn-story-photo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIHJ4PSI4IiBmaWxsPSIjZTVlOGY1Ii8+PGNpcmNsZSBjeD0iNTkwIiBjeT0iMTcwIiByPSI2NCIgZmlsbD0iI2Y5YTgyNSIgb3BhY2l0eT0iMC45Ii8+PHBhdGggZD0iTTAgNDcwIEwyMzAgMjUwIEw0MDAgNDEwIEw1MjAgMzAwIEw4MDAgNTIwIFY2MDAgSDAgWiIgZmlsbD0iIzVjNzBkNiIgb3BhY2l0eT0iMC43NSIvPjxwYXRoIGQ9Ik0wIDU0MCBDMjAwIDQ0MCAzNjAgNTYwIDU2MCA0ODAgQzY4MCA0MzAgNzQwIDQ3MCA4MDAgNDUwIFY2MDAgSDAgWiIgZmlsbD0iIzEwMmVjNyIvPjwvc3ZnPg==" alt="Vittorio Napoli" width="800" height="600" loading="lazy" style="width:100%;max-width:100%;height:auto"><p>&ldquo;Dopo la diagnosi pensavo che la mia vita fosse finita. Grazie a questo percorso, la stanchezza e la sonnolenza sono scomparse e i miei zuccheri sono tornati nella norma. Non ho più bisogno di correre continuamente in bagno.&rdquo;</p><span class="rn-story-name">Vittorio Napoli</span></div><div class="rn-story"><img class="rn-story-photo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIHJ4PSI4IiBmaWxsPSIjZTVlOGY1Ii8+PGNpcmNsZSBjeD0iNTkwIiBjeT0iMTcwIiByPSI2NCIgZmlsbD0iI2Y5YTgyNSIgb3BhY2l0eT0iMC45Ii8+PHBhdGggZD0iTTAgNDcwIEwyMzAgMjUwIEw0MDAgNDEwIEw1MjAgMzAwIEw4MDAgNTIwIFY2MDAgSDAgWiIgZmlsbD0iIzVjNzBkNiIgb3BhY2l0eT0iMC43NSIvPjxwYXRoIGQ9Ik0wIDU0MCBDMjAwIDQ0MCAzNjAgNTYwIDU2MCA0ODAgQzY4MCA0MzAgNzQwIDQ3MCA4MDAgNDUwIFY2MDAgSDAgWiIgZmlsbD0iIzEwMmVjNyIvPjwvc3ZnPg==" alt="Marina Pastari" width="800" height="600" loading="lazy" style="width:100%;max-width:100%;height:auto"><p>&ldquo;Sto notando un miglioramento costante ogni giorno. La stanchezza è sparita, l'appetito è normale e non ho più quegli sbalzi glicemici improvvisi dopo i pasti. Finalmente mi sento bene.&rdquo;</p><span class="rn-story-name">Marina Pastari</span></div><div class="rn-story"><img class="rn-story-photo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIHJ4PSI4IiBmaWxsPSIjZTVlOGY1Ii8+PGNpcmNsZSBjeD0iNTkwIiBjeT0iMTcwIiByPSI2NCIgZmlsbD0iI2Y5YTgyNSIgb3BhY2l0eT0iMC45Ii8+PHBhdGggZD0iTTAgNDcwIEwyMzAgMjUwIEw0MDAgNDEwIEw1MjAgMzAwIEw4MDAgNTIwIFY2MDAgSDAgWiIgZmlsbD0iIzVjNzBkNiIgb3BhY2l0eT0iMC43NSIvPjxwYXRoIGQ9Ik0wIDU0MCBDMjAwIDQ0MCAzNjAgNTYwIDU2MCA0ODAgQzY4MCA0MzAgNzQwIDQ3MCA4MDAgNDUwIFY2MDAgSDAgWiIgZmlsbD0iIzEwMmVjNyIvPjwvc3ZnPg==" alt="Alberta Danza" width="800" height="600" loading="lazy" style="width:100%;max-width:100%;height:auto"><p>&ldquo;Il sovrappeso e il diabete mi hanno tormentata per anni. Grazie a questo supporto naturale sono riuscita a ridurre il peso e mi sento splendida: i sintomi fastidiosi che mi impedivano di vivere sono solo un ricordo.&rdquo;</p><span class="rn-story-name">Alberta Danza</span></div></div>
+            </div>
+            
+            <div class="rn-split__cta rn-cta-wrap"><a href="#rn-order" class="rn-cta">Voglio iniziare il percorso</a><p class="rn-cta-note">Você só paga quando receber em casa</p></div>
+            
+        </div>
+    </section>
+    
+
+    <section class="rn-section" id="rn-benefits">
+        <div class="rn-section__head"><h2>Ritrova l'equilibrio e la vitalità che meriti ogni giorno</h2></div>
+        <div class="rn-split">
+            <div class="rn-split__text">
+                <ul class="rn-benefits-list"><li>Contribuisce a normalizzare i livelli di glucosio nel sangue</li><li>Stimola la produzione naturale di insulina</li><li>Aiuta ad aumentare la sensibilità dei tessuti all'insulina</li><li>Supporta il processo di perdita di peso corporeo</li><li>Contribuisce a ridurre la voglia costante di dolci</li><li>Aiuta a depurare i vasi sanguigni dal colesterolo</li><li>Aumenta i tuoi livelli di energia quotidiana</li></ul>
+            </div>
+            <div class="rn-split__media"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIHJ4PSI4IiBmaWxsPSIjZTVlOGY1Ii8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxNTApIj48Y2lyY2xlIGN4PSI2NDAiIGN5PSIxMTAiIHI9IjYwIiBmaWxsPSIjZjlhODI1IiBvcGFjaXR5PSIwLjkiLz48cGF0aCBkPSJNMCAzNjAgQzE1MCAzMDAgMjUwIDQyMCA0MDAgMzQwIEM1NTAgMjYwIDY1MCAzODAgODAwIDMyMCBWNDUwIEgwIFoiIGZpbGw9IiM1YzcwZDYiIG9wYWNpdHk9IjAuOCIvPjxwYXRoIGQ9Ik0wIDQwMCBDMTgwIDM0MCAzMDAgNDQwIDQ4MCAzODAgQzYyMCAzMzAgNzAwIDQwMCA4MDAgMzcwIFY0NTAgSDAgWiIgZmlsbD0iIzEwMmVjNyIvPjxjaXJjbGUgY3g9IjMwMCIgY3k9IjE4MCIgcj0iMzQiIGZpbGw9IiNmYWZkZmUiLz48cGF0aCBkPSJNMzAwIDIyNiB2OTAgTTMwMCAyNTAgbC00MCA0MCBNMzAwIDI1MCBsNDAgNDAgTTMwMCAzMTYgbC0zMCA2MCBNMzAwIDMxNiBsMzAgNjAiIHN0cm9rZT0iI2ZhZmRmZSIgc3Ryb2tlLXdpZHRoPSIxNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTEyMCAyNTAgYzAgLTMwIDQwIC0zMCA0MCAwIGMwIDMwIC00MCA1MCAtNDAgNTAgYzAgMCAtNDAgLTIwIC00MCAtNTAgYzAgLTMwIDQwIC0zMCA0MCAwIiBmaWxsPSIjZmFmZGZlIiBvcGFjaXR5PSIwLjkiLz48L2c+PC9zdmc+" alt="Diapril" width="800" height="600" loading="lazy" style="width:100%;max-width:100%;height:auto"></div>
+            
+            <div class="rn-split__cta rn-cta-wrap"><a href="#rn-order" class="rn-cta rn-cta--ghost">Ricevi a casa in sicurezza</a></div>
+            
+        </div>
     </section>
 
     
 
-    <section class="cd-section cd-faq-section">
-      <h2 class="cd-title">Domande frequenti</h2>
-      <div class="cd-faq">
-        <details class="cd-faq-item">
-          <summary>Devo inserire la carta o un documento?</summary>
-          <p>No. Inserisci solo nome, telefono e indirizzo per la consegna. Il pagamento avviene quando arriva il prodotto.</p>
-        </details>
-        <details class="cd-faq-item">
-          <summary>Devo pagare qualcosa in anticipo?</summary>
-          <p>No. Paghi solo quando ricevi il prodotto, direttamente al corriere.</p>
-        </details>
-        <details class="cd-faq-item">
-          <summary>Come vengo a sapere della consegna?</summary>
-          <p>Dopo l'ordine, ricevi la conferma con i dati della consegna.</p>
-        </details>
-        <details class="cd-faq-item">
-          <summary>E se il prodotto non mi piace?</summary>
-          <p>Se alla consegna non sei soddisfatto, non devi pagare. Il reso è immediato.</p>
-        </details>
-      </div>
-    </section>
-
     
 
-    <section class="cd-section cd-final">
-      <h2 class="cd-title">Ordina senza carta e paga solo alla consegna</h2>
-      <div class="cd-final-media">
-        <img src="https://us-nutra.com/diapril/images/1793820586683-pack.webp" id="image_final" class="cd-final-img" alt="Diapril" width="600" height="600" style="width: 100%; height: auto;">
-      </div>
-      <a class="cd-cta" href="https://natinutra.doctorpowerplus.com/l" data-mxhref="1">Ordina ora e paga alla consegna</a><ul class="cd-trust"><li class="cd-trust-item"><svg class="cd-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><span>Non chiediamo la carta</span></li><li class="cd-trust-item"><svg class="cd-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><span>Non chiediamo documenti</span></li><li class="cd-trust-item"><svg class="cd-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><span>Paghi solo quando lo ricevi</span></li></ul>
+    <!-- Selos de saúde só em suplemento (Robusta IA multinicho, 12/09/2026): o replacer
+         liga show_seals pelo nicho que vem do backend. -->
+    
+
+    
+    <div class="rn-bar"><h2>Domande frequenti per chiarire ogni tuo dubbio</h2></div>
+    <section class="rn-section" id="rn-faq">
+        <div class="rn-split">
+            <div class="rn-split__text">
+                <div class="rn-faq"><div class="rn-faq-item"><h3>Come si assume questo prodotto?</h3><p>Puoi integrare facilmente il prodotto nella tua routine quotidiana seguendo le indicazioni riportate sulla confezione, senza complicazioni.</p></div><div class="rn-faq-item"><h3>Quanto tempo ci vuole per vedere i risultati?</h3><p>Molti utenti iniziano a notare un miglioramento costante delle proprie condizioni già dopo le prime tre settimane di uso regolare.</p></div><div class="rn-faq-item"><h3>Come avviene il pagamento?</h3><p>Il pagamento avviene esclusivamente al momento della consegna, direttamente al corriere quando ricevi il prodotto a casa tua.</p></div><div class="rn-faq-item"><h3>Cosa succede se cambio idea?</h3><p>Se cambi idea o decidi di non procedere, ti basta non ritirare il pacco al momento della consegna e non pagherai nulla.</p></div><div class="rn-faq-item"><h3>È adatto alle mie esigenze?</h3><p>È formulato per chiunque desideri un supporto naturale per la gestione del metabolismo e dei livelli di glucosio.</p></div><div class="rn-faq-item"><h3>C'è bisogno di assistenza?</h3><p>Il nostro team è a disposizione per assisterti durante tutto il processo di ordine e ricezione del prodotto.</p></div></div>
+            </div>
+            
+            <div class="rn-split__cta rn-cta-wrap"><a href="#rn-order" class="rn-cta rn-cta--ghost">Ordina subito a casa</a></div>
+            
+        </div>
     </section>
-  </main>
+    
 
-  <footer class="cd-footer">
-    <p>© 2026 Diapril. Tutti i diritti riservati.</p>
-    <p>Questo sito non è affiliato a Facebook né ad alcuna entità di Facebook.</p>
-  </footer>
+    <!-- Seção do pedido: todo botão da página rola até aqui. O formulário segue o
+         contrato do cod_form (form.orderForm + showThanks()) e a copy dele vem dos
+         idiomas do cod_form (placeholders cod.x); o texto em volta vem da IA (page.order). -->
+    <section class="rn-section rn-final rn-order" id="rn-order">
+        <div class="rn-container">
+            <h2>Ripristina la tua naturale produzione di insulina e ritrova l'energia</h2>
+            <p class="rn-order__intro">Compila il modulo sottostante per effettuare l'ordine. Ricorda che non paghi nulla ora: il pagamento avviene solo quando ricevi il pacco.</p>
+            <div class="rn-order__grid">
+                <div class="rn-order__info">
+                    <h3>Come richiedere il tuo prodotto con pagamento alla consegna</h3>
+                    <div class="rn-order__steps"><div class="rn-step"><h3>Inserisci i tuoi dati</h3><p>Inserisci il tuo nome e il tuo numero di telefono nel modulo qui sotto.</p></div><div class="rn-step"><h3>Ricevi a casa</h3><p>Il prodotto verrà spedito direttamente al tuo indirizzo in tempi brevi.</p></div><div class="rn-step"><h3>Paga alla consegna</h3><p>Il pagamento viene effettuato solo nel momento in cui ricevi il prodotto a casa.</p></div></div>
+                    <p class="rn-order__norisk">Você não paga nada agora. Se não gostar ou mudar de ideia, é só não receber o produto — e não paga nada.</p>
+                </div>
+                <div class="rn-order__card">
+                    <div id="rn-order-form">
+                        <div class="rn-order__product"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIHJ4PSI4IiBmaWxsPSIjZmFmZGZlIi8+PGNpcmNsZSBjeD0iNDAwIiBjeT0iMzYwIiByPSIyNTAiIGZpbGw9IiNlNWU4ZjUiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMzAgMjAwKSI+PHJlY3QgeD0iNDkuMyIgeT0iMCIgd2lkdGg9IjM3LjQiIGhlaWdodD0iMjguOSIgcng9IjUuMSIgZmlsbD0iIzEwMmVjNyIgb3BhY2l0eT0iMSIvPjxyZWN0IHg9IjQyLjUiIHk9IjI1LjUiIHdpZHRoPSI1MSIgaGVpZ2h0PSIxNS4yOTk5OTk5OTk5OTk5OTkiIHJ4PSIzLjQiIGZpbGw9IiMxODIyMjYiIG9wYWNpdHk9IjAuODUiLz48cmVjdCB4PSIzNCIgeT0iMTg1LjI5OTk5OTk5OTk5OTk4IiB3aWR0aD0iNjgiIGhlaWdodD0iNi44IiByeD0iMy40IiBmaWxsPSIjOWFhOGFlIiBvcGFjaXR5PSIwLjUiLz48cmVjdCB4PSI0NC4xOTk5OTk5OTk5OTk5OTYiIHk9IjE5OC45IiB3aWR0aD0iNDcuNiIgaGVpZ2h0PSI2LjgiIHJ4PSIzLjQiIGZpbGw9IiM5YWE4YWUiIG9wYWNpdHk9IjAuMzUiLz48cmVjdCB4PSIxNyIgeT0iMzkuMSIgd2lkdGg9IjEwMiIgaGVpZ2h0PSIxODEuOSIgcng9IjE4LjciIGZpbGw9IiNmYWZkZmUiIHN0cm9rZT0iIzE4MjIyNiIgc3Ryb2tlLW9wYWNpdHk9IjAuMTIiIHN0cm9rZS13aWR0aD0iMi41NSIvPjxyZWN0IHg9IjE3IiB5PSI4MS42IiB3aWR0aD0iMTAyIiBoZWlnaHQ9IjkzLjUiIGZpbGw9IiM1YzcwZDYiLz48Y2lyY2xlIGN4PSI2OCIgY3k9IjEyOC4zNSIgcj0iMjUuNSIgZmlsbD0iI2ZhZmRmZSIvPjxwYXRoIGQ9Ik01Ni4xIDEzMC4wNDk5OTk5OTk5OTk5OCBsNy42NDk5OTk5OTk5OTk5OTk1IDcuNjQ5OTk5OTk5OTk5OTk5NSBsMTcgLTE4LjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwMmVjNyIgc3Ryb2tlLXdpZHRoPSI1LjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMjAgMTQwKSI+PHJlY3QgeD0iNjAuOTAwMDAwMDAwMDAwMDA2IiB5PSIwIiB3aWR0aD0iNDYuMiIgaGVpZ2h0PSIzNS43IiByeD0iNi4zMDAwMDAwMDAwMDAwMDEiIGZpbGw9IiMxMDJlYzciIG9wYWNpdHk9IjEiLz48cmVjdCB4PSI1Mi41IiB5PSIzMS41IiB3aWR0aD0iNjMiIGhlaWdodD0iMTguOTAwMDAwMDAwMDAwMDAyIiByeD0iNC4yIiBmaWxsPSIjMTgyMjI2IiBvcGFjaXR5PSIwLjg1Ii8+PHJlY3QgeD0iNDIiIHk9IjIyOC45IiB3aWR0aD0iODQiIGhlaWdodD0iOC40IiByeD0iNC4yIiBmaWxsPSIjOWFhOGFlIiBvcGFjaXR5PSIwLjUiLz48cmVjdCB4PSI1NC42IiB5PSIyNDUuNzAwMDAwMDAwMDAwMDIiIHdpZHRoPSI1OC44MDAwMDAwMDAwMDAwMDQiIGhlaWdodD0iOC40IiByeD0iNC4yIiBmaWxsPSIjOWFhOGFlIiBvcGFjaXR5PSIwLjM1Ii8+PHJlY3QgeD0iMjEiIHk9IjQ4LjMwMDAwMDAwMDAwMDAwNCIgd2lkdGg9IjEyNiIgaGVpZ2h0PSIyMjQuNzAwMDAwMDAwMDAwMDIiIHJ4PSIyMy4xIiBmaWxsPSIjZmFmZGZlIiBzdHJva2U9IiMxODIyMjYiIHN0cm9rZS1vcGFjaXR5PSIwLjEyIiBzdHJva2Utd2lkdGg9IjMuMTUwMDAwMDAwMDAwMDAwNCIvPjxyZWN0IHg9IjIxIiB5PSIxMDAuODAwMDAwMDAwMDAwMDEiIHdpZHRoPSIxMjYiIGhlaWdodD0iMTE1LjUiIGZpbGw9IiM1YzcwZDYiLz48Y2lyY2xlIGN4PSI4NCIgY3k9IjE1OC41NSIgcj0iMzEuNSIgZmlsbD0iI2ZhZmRmZSIvPjxwYXRoIGQ9Ik02OS4zIDE2MC42NSBsOS40NTAwMDAwMDAwMDAwMDEgOS40NTAwMDAwMDAwMDAwMDEgbDIxIC0yMy4xIiBmaWxsPSJub25lIiBzdHJva2U9IiMxMDJlYzciIHN0cm9rZS13aWR0aD0iNi4zMDAwMDAwMDAwMDAwMDEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1MzAgMjAwKSI+PHJlY3QgeD0iNDkuMyIgeT0iMCIgd2lkdGg9IjM3LjQiIGhlaWdodD0iMjguOSIgcng9IjUuMSIgZmlsbD0iIzEwMmVjNyIgb3BhY2l0eT0iMSIvPjxyZWN0IHg9IjQyLjUiIHk9IjI1LjUiIHdpZHRoPSI1MSIgaGVpZ2h0PSIxNS4yOTk5OTk5OTk5OTk5OTkiIHJ4PSIzLjQiIGZpbGw9IiMxODIyMjYiIG9wYWNpdHk9IjAuODUiLz48cmVjdCB4PSIzNCIgeT0iMTg1LjI5OTk5OTk5OTk5OTk4IiB3aWR0aD0iNjgiIGhlaWdodD0iNi44IiByeD0iMy40IiBmaWxsPSIjOWFhOGFlIiBvcGFjaXR5PSIwLjUiLz48cmVjdCB4PSI0NC4xOTk5OTk5OTk5OTk5OTYiIHk9IjE5OC45IiB3aWR0aD0iNDcuNiIgaGVpZ2h0PSI2LjgiIHJ4PSIzLjQiIGZpbGw9IiM5YWE4YWUiIG9wYWNpdHk9IjAuMzUiLz48cmVjdCB4PSIxNyIgeT0iMzkuMSIgd2lkdGg9IjEwMiIgaGVpZ2h0PSIxODEuOSIgcng9IjE4LjciIGZpbGw9IiNmYWZkZmUiIHN0cm9rZT0iIzE4MjIyNiIgc3Ryb2tlLW9wYWNpdHk9IjAuMTIiIHN0cm9rZS13aWR0aD0iMi41NSIvPjxyZWN0IHg9IjE3IiB5PSI4MS42IiB3aWR0aD0iMTAyIiBoZWlnaHQ9IjkzLjUiIGZpbGw9IiM1YzcwZDYiLz48Y2lyY2xlIGN4PSI2OCIgY3k9IjEyOC4zNSIgcj0iMjUuNSIgZmlsbD0iI2ZhZmRmZSIvPjxwYXRoIGQ9Ik01Ni4xIDEzMC4wNDk5OTk5OTk5OTk5OCBsNy42NDk5OTk5OTk5OTk5OTk1IDcuNjQ5OTk5OTk5OTk5OTk5NSBsMTcgLTE4LjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwMmVjNyIgc3Ryb2tlLXdpZHRoPSI1LjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvZz48ZWxsaXBzZSBjeD0iNDAwIiBjeT0iNTYwIiByeD0iMjYwIiByeT0iMTgiIGZpbGw9IiMxODIyMjYiIG9wYWNpdHk9IjAuMDgiLz48Y2lyY2xlIGN4PSI2NDAiIGN5PSIxMjAiIHI9IjQ2IiBmaWxsPSIjZjlhODI1Ii8+PHBhdGggZD0iTTYyMCAxMjIgbDE0IDE0IGwyOCAtMzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZhZmRmZSIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4=" alt="Diapril" width="800" height="600" loading="lazy" style="max-width:100%;height:auto"></div>
+                        <div class="rn-order__badges"><span>Paga alla consegna</span><span>Rischio zero</span></div>
+                        <div class="rn-order__price">29 €</div>
+                        <!-- Frete grátis só quando o afiliado marca no painel: quem define o frete é a oferta da rede. -->
+                        
+                        <form class="orderForm" autocomplete="on">
+                            <input type="text" name="name" class="form-input" placeholder="Nome" required />
+                            <input type="text" name="phone" class="form-input" placeholder="Il tuo telefono con prefisso (per confermare la consegna)" required />
+                            <input type="hidden" name="ip" value="" />
+                            <input type="hidden" name="sub2" id="sub2" value="" />
+                            <!-- Honeypot: invisível para gente, tentador para bot (ver cod_form). -->
+                            <input type="text" name="adsx_hp" value="" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
+                            <button type="submit" class="cta-button">
+                                <svg class="cta-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                <span class="cta-spinner" aria-hidden="true"></span>
+                                Richiedi la consegna a casa
+                            </button>
+                            <p class="cta-note">I tuoi dati sono protetti · Confermiamo telefonicamente prima della spedizione</p>
+                        </form>
+                    </div>
+                    <div id="thanks-with-upsell" class="rn-thanks" style="display: none;">
+                        <div class="rn-thanks__icon" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                        <h3 class="rn-thanks__title">🎉 Congratulazioni per il tuo acquisto!</h3>
+                        <p>Il tuo ordine è stato ricevuto con successo. Il nostro team ti contatterà a breve per confermare i dettagli di spedizione.</p>
+                        <div class="rn-thanks__info"><strong>Attendi il nostro contatto.</strong> Riceverai una chiamata o un messaggio per confermare l’indirizzo di consegna.</div>
+                        <div class="rn-thanks__gift"><span>🎁 Offerta esclusiva</span><strong>Un regalo speciale per te!</strong><p>Come ringraziamento, abbiamo sbloccato un’offerta unica per i nuovi clienti — disponibile solo su questa pagina.</p></div>
+                        <button type="button" class="cta-button" onclick="redirectToUpsell()">VOGLIO RICEVERE IL MIO REGALO</button>
+                        <p class="cta-note">⏱️ Offerta valida solo su questa pagina</p>
+                    </div>
+                    <div id="thanks-with-no-upsell" class="rn-thanks" style="display: none;">
+                        <div class="rn-thanks__icon" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                        <h3 class="rn-thanks__title">🎉 Congratulazioni per il tuo acquisto!</h3>
+                        <p>Il tuo ordine è stato ricevuto con successo. Il nostro team ti contatterà a breve per confermare i dettagli di spedizione.</p>
+                        <div class="rn-thanks__info"><strong>Attendi il nostro contatto.</strong> Riceverai una chiamata o un messaggio per confermare l’indirizzo di consegna.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <a id="goToPage" aria-label="go to your page" href="https://natinutra.doctorpowerplus.com/l" data-mxhref="1"></a>
-  <script src="https://cdn.jsdelivr.net/gh/victorkinder/cdn/tracker_min_4.js" defer=""></script><script>const platformAdId='sub2';window.__PRESSELL_SEQUENCE_KEYS__=["sub1","sub3","sub4","sub5"];window.__PRESSELL_KEY_MAP__={gclid:platformAdId,gbraid:platformAdId,wbraid:platformAdId,msclkid:platformAdId,fbclid:platformAdId};</script>
-  
-  <div class="disclaimer">Divulgazione di affiliazione: questa pagina è una pubblicità indipendente e non è il sito ufficiale del prodotto o del marchio. Se acquisti tramite i link presenti qui, potrei guadagnare una commissione. Questo non cambia il prezzo finale che paghi. <a href="https://us-nutra.com/privacy_policy.html" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Privacy Policy</a><span class="usage-policies-separator">•</span><a href="https://us-nutra.com/terms_of_use.html" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Terms of Use</a></div>
+    <footer class="rn-footer">
+        <p class="rn-disclaimer">Avviso: questo sito contiene link di affiliazione e può ricevere una commissione sugli acquisti effettuati. Le informazioni qui riportate hanno scopo informativo. I risultati possono variare da persona a persona e non vi è alcuna garanzia di guadagni o risultati specifici.</p>
+        <p>&copy; 2026 Diapril</p>
+        <div class="disclaimer">Informativa sull'affiliazione: questa pagina è una pubblicità indipendente e non è il sito ufficiale del prodotto o del marchio. Se acquisti tramite i link presenti qui, potrei guadagnare una commissione. Questo non cambia il prezzo finale che paghi. <a href="https://us-nutra.com/privacy_policy.html" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Privacy Policy</a><span class="usage-policies-separator">•</span><a href="https://us-nutra.com/terms_of_use.html" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Terms of Use</a></div>
+    </footer>
 
+    <div class="rn-sticky">
+        <a href="#rn-order" class="rn-cta">Richiedi la consegna a casa</a>
+    </div>
 
-
-</body></html>
+    <script>
+      (function () {
+        var bar = document.querySelector('.rn-sticky');
+        var heroCta = document.querySelector('.rn-hero .rn-cta');
+        if (!bar) return;
+        if (!heroCta || !('IntersectionObserver' in window)) { bar.classList.add('is-visible'); return; }
+        new IntersectionObserver(function (entries) { var e = entries[0];
+          bar.classList.toggle('is-visible', !e.isIntersecting && e.boundingClientRect.top < 0);
+        }).observe(heroCta);
+      })();
+    </script>
+    <script>
+      window.customerData = { name: '', phone: '' };
+      document.addEventListener('DOMContentLoaded', function () {
+        var params = new URLSearchParams(window.location.search);
+        ['name', 'phone'].forEach(function (field) {
+          var value = params.get(field);
+          var input = document.querySelector('.orderForm input[name="' + field + '"]');
+          if (value && input) { input.value = value; window.customerData[field] = value; }
+        });
+        // O sub2 que veio na URL manda; o gclid é fallback (mesma regra do cod_form).
+        var sub2Input = document.getElementById('sub2');
+        if (!sub2Input) return;
+        var current = sub2Input.value.trim();
+        if (!current || current.length < 20) {
+          var gclid = params.get('gclid') || window.__GCLID__ || '';
+          if (gclid) sub2Input.value = gclid;
+        }
+      });
+      // Guardado no submit e no clique: o formulário some quando o obrigado aparece,
+      // e o upsell repassa nome e telefone na URL.
+      (function () {
+        var form = document.querySelector('.orderForm');
+        if (!form) return;
+        function captureFormData() {
+          var nameInput = form.querySelector('input[name="name"]');
+          var phoneInput = form.querySelector('input[name="phone"]');
+          var sub2 = form.querySelector('input[name="sub2"]');
+          window.customerData = { name: nameInput ? nameInput.value.trim() : '', phone: phoneInput ? phoneInput.value.trim() : '', sub2: sub2 ? sub2.value.trim() : '' };
+        }
+        form.addEventListener('submit', captureFormData);
+        var ctaBtn = form.querySelector('.cta-button');
+        if (ctaBtn) ctaBtn.addEventListener('click', captureFormData);
+      })();
+      function redirectToUpsell() {
+        var data = window.customerData || { name: '', phone: '' };
+        var currentParams = new URLSearchParams(window.location.search);
+        currentParams.set('name', data.name || '');
+        currentParams.set('phone', data.phone || '');
+        window.location.href = '#?' + currentParams.toString();
+      }
+    </script>
+    
+    <script>function showThanks(){
+      document.getElementById('rn-order-form').style.display = 'none';
+      document.getElementById('thanks-with-no-upsell').style.display = 'block';
+    }</script>
+    <script src='https://snippet.infothroat.com/dist/api/lead-1.1.0.min.js'></script><script>(function() {  function initDrLead() {    if (typeof drlead === 'undefined') {return setTimeout(initDrLead, 100);}drlead.init({params: {token: 'MJK2NJMXZJMTNZBKNI00ZWY4LWJKMDKTZDMYOGU1ZJEXYJQ2',stream_code: '24k69',thanks_page: ''},subs: {sub1: drlead.formInputGet('sub1') || drlead.queryGet('sub1'),sub2: drlead.formInputGet('sub2') || drlead.queryGet('sub2'),sub3: drlead.formInputGet('sub3') || drlead.queryGet('sub3'),sub4: drlead.formInputGet('sub4') || drlead.queryGet('sub4'),sub5: drlead.formInputGet('sub5') || drlead.queryGet('sub5')},callback: function(error, response) {if (error) {console.error('drlead error:', error);return;};console.log('Lead enviado com sucesso:', response);if (typeof window.showThanks === 'function') {window.showThanks(response);}},before: function() {console.log('Enviando lead...');}});}if (document.readyState === 'loading') {document.addEventListener('DOMContentLoaded', initDrLead);} else {initDrLead();}})();</script>
+    <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17341898308"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-17341898308'); </script><script>
+    function click() {
+      document.getElementById("goToPage").click();
+    }
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/victorkinder/cdn/tracker_min_4.js" defer></script><script>const platformAdId='sub2';window.__PRESSELL_SEQUENCE_KEYS__=["sub1","sub3","sub4","sub5"];window.__PRESSELL_KEY_MAP__={gclid:platformAdId,gbraid:platformAdId,wbraid:platformAdId,msclkid:platformAdId,fbclid:platformAdId};</script>
+    
+</body>
+</html>
